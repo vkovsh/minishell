@@ -25,6 +25,7 @@ LIBFT_BINTREE_PATH	=	$(LIBFT_SRCS_PATH)bintree/
 LIBFT_LIST_PATH		=	$(LIBFT_SRCS_PATH)list/
 LIBFT_STREAM_PATH	=	$(LIBFT_SRCS_PATH)stream/
 LIBFT_PRINTF_PATH	=	$(LIBFT_SRCS_PATH)ft_printf/
+LIBFT_STRING_PATH	=	$(LIBFT_SRCS_PATH)string/
 
 MACRO_PATH			=   $(LIBFT_PRINTF_PATH)macro/
 PARSER_PATH			=   $(LIBFT_PRINTF_PATH)parser/
@@ -40,6 +41,11 @@ OBJ_NAME	+=	$(LIBFT_LIST_NAME:.c=.o)
 OBJ_NAME	+=	$(LIBFT_STREAM_NAME:.c=.o)
 OBJ_NAME    +=  $(MACRO_NAME:.c=.o)
 OBJ_NAME    +=  $(PARSER_NAME:.c=.o)
+OBJ_NAME	+=	$(LIBFT_STRING_NAME:.c=.o)
+
+LIBFT_STRING_NAME	=	create_string.c		\
+						delete_string.c		\
+						string_join.c
 
 PARSER_NAME =   parse_specs.c						\
 				get_spec.c							\
@@ -193,6 +199,11 @@ $(STATIC_NAME): $(OBJ)
 	@ar rc $@ $^
 	@ranlib $@
 	@echo "Compiling" [ $(STATIC_NAME) ]
+
+$(OBJ_PATH)%.o: $(LIBFT_STRING_PATH)%.c
+	@mkdir -p $(OBJ_PATH)
+	@$(CC) $(CC_FLAGS) -o $@ -c $< $(INC)
+	@echo "Linking" [ $< ]
 
 $(OBJ_PATH)%.o: $(LIBFT_PRINTF_PATH)%.c
 	@mkdir -p $(OBJ_PATH)
