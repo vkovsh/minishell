@@ -1,21 +1,31 @@
 #include "minishell.h"
 
-int	main(void)
+int				main(int ac, char **av, char **ev)
 {
-	t_string *prompt = create_prompt();
-	t_string *command = (t_string *)malloc(sizeof(t_string));
 	t_shellinfo	si;
+	char		cmd_str[128];
+	ssize_t		count;
 
-	init_shellinfo(&si);
-	display_prompt(prompt);
-	while (get_next_line(0, &command->str))
+	(void)ac;
+	(void)av;
+	init_shellinfo(&si, ev);
+	display_prompt(si.prompt);
+	while ((count = read(STDIN, cmd_str, 128)))
 	{
-		command->size = ft_strlen(command->str);
-		//if (!lexer(command))
-		//	ft_printf("OK\n");
-		//	processor(command);
-		display_prompt(prompt);
+		cmd_str[count] = '\0';
+		si.cmd_current = lexer(cmd_str, si.processors);
+		exec(&si, si.cmd_current);
+		if (!si.cmd_history)
+		{
+			ft_lstrev(&si.cmd_current);
+			si.cmd_history = si.cmd_current;
+		}
+		else
+			ft_lstaddsub(&si.cmd_history, si.cmd_current);
+		if (si.shell_exit)
+			break ;
+		display_prompt(si.prompt);
 	}
-	delete_string(prompt);
+	delete_shellinfo(&si);
 	return (0);
 }

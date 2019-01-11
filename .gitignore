@@ -1,5 +1,7 @@
 #binary name
 minishell
+ls
+echo
 
 # Prerequisites
 *.d

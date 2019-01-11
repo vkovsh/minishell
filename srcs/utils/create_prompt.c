@@ -2,18 +2,21 @@
 #include <stdio.h>
 #include <locale.h>
 
-t_string		*create_prompt(void)
+t_string		*create_prompt(const char *dir_name)
 {
 	t_string	*prompt;
-	char		dir_name[256];
 	char		*cut_dir_name;
 
-	getcwd(dir_name, 256);
-	cut_dir_name = ft_strrchr(dir_name, '/');
-	if (cut_dir_name)
-		cut_dir_name++;
+	if (*dir_name == '/' && !*(dir_name + 1))
+		cut_dir_name = (char *)dir_name;
 	else
-		cut_dir_name = dir_name;
+	{
+		cut_dir_name = ft_strrchr(dir_name, '/');
+		if (cut_dir_name)
+			cut_dir_name++;
+		else
+			cut_dir_name = (char *)dir_name;
+	}
 	cut_dir_name = ft_strjoin_free(
 			"\x1b[38;2;205;236;119m"
 			"\U0000279C\040\040\033[1m",

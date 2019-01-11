@@ -173,7 +173,8 @@ LIBFT_LIST_NAME	=		ft_lstadd.c			\
 						ft_lstiter.c		\
 						ft_lstmap.c			\
 						ft_lstnew.c			\
-						ft_lstrev.c
+						ft_lstrev.c			\
+						ft_lstaddsub.c
 
 LIBFT_STREAM_NAME	=	ft_putchar.c		\
 						ft_putchar_fd.c		\
