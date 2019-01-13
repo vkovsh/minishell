@@ -5,9 +5,38 @@
 # define SHELL struct s_shellinfo
 # define CMD struct s_cmd
 # define CLEAR_SCREEN_ANSI "\e[1;1H\e[2J"
+# define ENV_I_M 0x01
+# define ENV_ZERO_M 0x02
+# define ENV_U_M 0x04
+# define ENV_C_M 0x08
+# define MASKS {ENV_I_M, ENV_ZERO_M, ENV_U_M, ENV_C_M}
+# define ENV_FLAGS_LITERALS "i0uC"
 
 struct s_shellinfo;
 struct s_cmd;
+
+/*
+** 	-i, --ignore-environment
+**		start with an empty environment
+**
+** 	-0, --null
+**		end each output line with NUL, not newline
+**
+**	-u, --unset=NAME
+**		remove variable from the environment
+**
+**	-C, --chdir=DIR
+**		change working directory to DIR
+*/
+typedef enum		e_envflags
+{
+	ENV_UNDEFINED = -1,
+	ENV_I,
+	ENV_ZERO,
+	ENV_U,
+	ENV_C,
+	ENV_TOTAL
+}					t_envflags;
 
 /*
 ** Command processor prototype

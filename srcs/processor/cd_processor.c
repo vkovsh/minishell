@@ -18,13 +18,11 @@ void		cd_processor(SHELL *s, CMD *c)
 	c->cmd_status = EXEC_SUCCESS;
 	if (c->cmd_args[1] == NULL)
 	{
-		cd_path = ft_strjoin("/home/",
-			ft_bintree_find(&s->environ,
-							"USER",
+		cd_path = ft_bintree_find(&s->environ,
+							"HOME",
 							4,
-							ft_memcmp)->value);
+							ft_memcmp)->value;
 		change_exec_dir(s, cd_path);
-		ft_strdel(&cd_path);
 	}
 	else if (access(c->cmd_args[1], F_OK | X_OK) == -1)
 		ft_printf("'%s' permission denied\n", c->cmd_args[1]);

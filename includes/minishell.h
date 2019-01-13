@@ -9,6 +9,7 @@
 # include <unistd.h>
 # include "cmd.h"
 # include <stdbool.h>
+# include <signal.h>
 # define NAME_MAX 255
 # define PATH_MAX 4096
 # define STDIN 0
@@ -38,5 +39,6 @@ void				display_prompt(t_string *prompt);
 void				init_shellinfo(t_shellinfo *si, char **ev);
 void				delete_shellinfo(t_shellinfo *s);
 void				delete_args_array(char **arr);
+void				signal_handler(int sig_num);
 
 #endif
