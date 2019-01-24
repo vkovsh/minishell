@@ -18,10 +18,7 @@ void		cd_processor(SHELL *s, CMD *c)
 	c->cmd_status = EXEC_SUCCESS;
 	if (c->cmd_args[1] == NULL)
 	{
-		cd_path = ft_bintree_find(&s->environ,
-							"HOME",
-							4,
-							ft_memcmp)->value;
+		cd_path = FIND(s->environ, "HOME", 4);
 		change_exec_dir(s, cd_path);
 	}
 	else if (access(c->cmd_args[1], F_OK | X_OK) == -1)

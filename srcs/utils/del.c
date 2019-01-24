@@ -41,5 +41,7 @@ void	delete_shellinfo(t_shellinfo *s)
 	ft_strdel(&s->bin_path);
 	delete_string(s->prompt);
 	ft_lstdel(&(s->cmd_history), del_cmd_entry);
-	ft_bintree_del(&(s->environ), del_tree_node);
+	CLEAR(s->environ);
+	free(s->environ);
+	free(s->env_array);
 }

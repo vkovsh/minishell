@@ -29,13 +29,18 @@ void		arbitrary_processor(SHELL *s, CMD *c)
 	path = NULL;
 	exec_path = NULL;
 	c->cmd_status = EXEC_SUCCESS;
-	path = ft_strsplit(ft_bintree_find(&s->environ,
-			"PATH", 4, ft_memcmp)->value, ':');
+	path = ft_strsplit(FIND(s->environ, "PATH", 4), ':');
 	c_pid = fork();
 	if (c_pid == 0)
 	{
+		//for (int i = 0; s->env_array[i]; ++i)
+		//	ft_printf("#%d:\n%s\n", i, s->env_array[i]);
 		if ((exec_path = exec_bin_path(c->cmd_name, path)))
-			execve(exec_path, c->cmd_args, NULL);
+		{
+			//for (int i = 0; s->env_array[i]; ++i)
+			//	ft_printf("#%d:\n%s\n", i, s->env_array[i]);
+			execve(exec_path, c->cmd_args, s->env_array);
+		}
 		c->cmd_status = EXEC_FAIL;
 		ft_printf("'%s' command is undefined\n", c->cmd_name);
 		exit(EXEC_FAIL);

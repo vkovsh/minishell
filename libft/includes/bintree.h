@@ -63,4 +63,17 @@ void					ft_bintree_postfix_traverse(t_bintree **t,
 
 void					ft_bintree_infix_traverse_reverse(t_bintree **t,
 						t_node_action action);
+
+/*
+** Arguments:	t_bintree **t - adress of tree main node
+**				void *key - key value of target node
+**				size_t key_size - size of key value
+**				t_compare_keys cmp - function for key compare
+** Return:		1 if node with  key exists, 0 otherwise
+*/
+t_bintree				*ft_bintree_remove(t_bintree *t,
+						void *key,
+						size_t key_size,
+						t_compare_keys cmp,
+						t_del_node del);
 #endif

@@ -11,13 +11,14 @@
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
-#define LIBFT_H
-#include "bintree.h"
-#include "s_string.h"
-#include <string.h>
-#include <limits.h>
-#include <wchar.h>
-#define BUFF_SIZE 32
+# define LIBFT_H
+# include "bintree.h"
+# include "dictionary.h"
+# include "s_string.h"
+# include <string.h>
+# include <limits.h>
+# include <wchar.h>
+# define BUFF_SIZE 32
 
 typedef struct s_list
 {

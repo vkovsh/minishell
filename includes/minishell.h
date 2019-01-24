@@ -25,7 +25,7 @@ typedef struct		s_shellinfo
 	t_list			*cmd_history;
 	t_list			*cmd_current;
 	t_list			*arguments;
-	t_bintree		*environ;
+	t_dictionary	*environ;
 	char			**env_array;
 	t_processor		processors[CMD_TOTAL];
 	char			*bin_path;

@@ -13,8 +13,6 @@ void	ft_bintree_add(t_bintree **t,
 			ft_bintree_add(&((*t)->left), node, compare);
 		else
 			ft_bintree_add(&((*t)->right), node, compare);
-		//printf("[%d] -> ", (*t)->height);
-		//*t = ft_balance(*t);
-		//printf("[%d]\n", (*t)->height);
+		*t = ft_balance(*t);
 	}
 }

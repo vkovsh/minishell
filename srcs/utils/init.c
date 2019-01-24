@@ -1,20 +1,30 @@
 #include "minishell.h"
 
-static void	set_environ(t_bintree **b, char **e)
+static void	set_environ(t_dictionary *d, char **e)
 {
-	char	**kv;
+	char	**p;
 	char	*begin;
 
 	begin = *e;
 	while (*e)
 	{
-		kv = ft_strsplit(*e++, '=');
-		ft_bintree_add(b,
-			ft_bintree_new(kv[0], ft_strlen(kv[0]) + 1,
-			kv[1], ft_strlen(kv[1]) + 1), ft_memcmp);
-		delete_args_array(kv);
+		p = ft_strsplit(*e++, '=');
+		INSERT(d, ITEM(*p,
+					ft_strlen(*p) + 1,
+					p[1],
+					ft_strlen(p[1]) + 1));
+		delete_args_array(p);
 	}
 	*e = begin;
+}
+
+static void	del_node(void *k, size_t k_size,
+					void *data, size_t data_size)
+{
+	free(k);
+	free(data);
+	(void)k_size;
+	(void)data_size;
 }
 
 void		init_shellinfo(t_shellinfo *si, char **env)
@@ -22,9 +32,13 @@ void		init_shellinfo(t_shellinfo *si, char **env)
 	char	working_dir[256];
 
 	getcwd(working_dir, 256);
-	si->env_array = env;
 	si->environ = NULL;
-	set_environ(&si->environ, env);
+	init_dictionary(&si->environ, ft_memcmp, del_node);
+	set_environ(si->environ, env);
+	si->env_array = NULL;
+	si->env_array = (char **)malloc(sizeof(char *) * (SIZE(si->environ) + 1));
+	si->env_array = ft_memcpy(si->env_array, env, sizeof(char *) * (SIZE(si->environ) + 1));
+	si->env_array[SIZE(si->environ)] = NULL;
 	si->shell_exit = false;
 	si->current_proc_path = ft_strdup(working_dir);
 	si->init_proc_path = ft_strdup(working_dir);
