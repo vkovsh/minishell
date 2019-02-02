@@ -85,7 +85,6 @@ void					print_from_stat(t_catalog *c,
 	}
 	if (tname)
 		ft_printf(" -> %s", tname);
-	//ft_printf("[[ %s ]]\n", list);
 }
 
 void					print_verbose_info(t_catalog *c,

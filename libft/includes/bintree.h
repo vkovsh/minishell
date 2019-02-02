@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bintree.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vkovsh <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/02/02 15:12:50 by vkovsh            #+#    #+#             */
+/*   Updated: 2019/02/02 15:12:51 by vkovsh           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef BINTREE_H
 # define BINTREE_H
 # include <sys/types.h>
@@ -39,30 +51,32 @@ void					ft_bintree_add(t_bintree **t,
 	t_bintree *node, t_compare_keys compare);
 
 t_bintree				*ft_bintree_new(const void *key,
-	size_t key_size,
-	const void *value,
-	size_t value_size);
+							size_t key_size,
+							const void *value,
+							size_t value_size);
 
 t_bintree				*ft_bintree_find(t_bintree **t,
-	void *key, size_t key_size, t_compare_keys compare);
+							void *key,
+							size_t key_size,
+							t_compare_keys compare);
 
 void					ft_bintree_delone(t_bintree **t,
-	t_del_node del);
+							t_del_node del);
 
 void					ft_bintree_del(t_bintree **t,
-	t_del_node del);
+							t_del_node del);
 
 void					ft_bintree_infix_traverse(t_bintree **t,
-						t_node_action action);
+							t_node_action action);
 
 void					ft_bintree_prefix_traverse(t_bintree **t,
-						t_node_action action);
+							t_node_action action);
 
 void					ft_bintree_postfix_traverse(t_bintree **t,
-						t_node_action action);
+							t_node_action action);
 
 void					ft_bintree_infix_traverse_reverse(t_bintree **t,
-						t_node_action action);
+							t_node_action action);
 
 /*
 ** Arguments:	t_bintree **t - adress of tree main node
@@ -72,8 +86,8 @@ void					ft_bintree_infix_traverse_reverse(t_bintree **t,
 ** Return:		1 if node with  key exists, 0 otherwise
 */
 t_bintree				*ft_bintree_remove(t_bintree *t,
-						void *key,
-						size_t key_size,
-						t_compare_keys cmp,
-						t_del_node del);
+							void *key,
+							size_t key_size,
+							t_compare_keys cmp,
+							t_del_node del);
 #endif
