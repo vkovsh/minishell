@@ -1,5 +1,17 @@
 #include "minishell.h"
 
+t_shellinfo	*g_si = NULL;
+
+static void	handle_signal(int sig) 
+{
+	ft_printf("Caught signal %d\n", sig);
+	if (sig == SIGINT)
+	{ 
+		delete_shellinfo(g_si);
+		exit(0);
+	}
+}
+
 static void	set_environ(t_dictionary *d, char **e)
 {
 	char	**p;
@@ -31,6 +43,8 @@ void		init_shellinfo(t_shellinfo *si, char **env)
 {
 	char	working_dir[256];
 
+	g_si = si;
+	signal(SIGINT, handle_signal);
 	getcwd(working_dir, 256);
 	si->environ = NULL;
 	init_dictionary(&si->environ, ft_memcmp, del_node);

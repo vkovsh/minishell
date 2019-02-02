@@ -16,7 +16,7 @@ char			**trim_cmds(char **split_cmds)
 }
 
 t_list			*lexer(const char *cmd_txt,
-				t_processor	*processors)
+				SHELL *s)
 {
 	char		**split_cmds = NULL;
 	t_list		*result = NULL;
@@ -28,7 +28,7 @@ t_list			*lexer(const char *cmd_txt,
 	trash = split_cmds;
 	while (*split_cmds)
 	{
-		c = create_command(*split_cmds,	processors);
+		c = create_command(*split_cmds,	s);
 		ft_lstadd(&result, ft_lstnew(&c, sizeof(t_cmd)));
 		split_cmds++;
 	}

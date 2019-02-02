@@ -22,28 +22,23 @@ static char	*exec_bin_path(const char *bin_name,
 void		arbitrary_processor(SHELL *s, CMD *c)
 {
 	char	**path;
-	pid_t	c_pid;
 	char	*exec_path;
+	pid_t	pid;
 
 	c->cmd_status = EXEC_SUCCESS;
 	path = NULL;
 	exec_path = NULL;
 	c->cmd_status = EXEC_SUCCESS;
 	path = ft_strsplit(FIND(s->environ, "PATH", 4), ':');
-	c_pid = fork();
-	if (c_pid == 0)
+	if ((pid = fork()) == -1)
+		exit(EXEC_FAIL);
+	if (pid == 0)
 	{
-		//for (int i = 0; s->env_array[i]; ++i)
-		//	ft_printf("#%d:\n%s\n", i, s->env_array[i]);
 		if ((exec_path = exec_bin_path(c->cmd_name, path)))
-		{
-			//for (int i = 0; s->env_array[i]; ++i)
-			//	ft_printf("#%d:\n%s\n", i, s->env_array[i]);
 			execve(exec_path, c->cmd_args, s->env_array);
-		}
 		c->cmd_status = EXEC_FAIL;
 		ft_printf("'%s' command is undefined\n", c->cmd_name);
-		exit(EXEC_FAIL);
+		exit(0);
 	}
 	else
 	{

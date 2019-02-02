@@ -2,10 +2,10 @@
 
 int				main(int ac, char **av, char **ev)
 {
-	t_shellinfo	si = {0};
 	char		cmd_str[128] = {0};
 	ssize_t		count;
 	char		*cmd_str_trimmed;
+	SHELL		si;
 
 	(void)ac;
 	(void)av;
@@ -21,7 +21,7 @@ int				main(int ac, char **av, char **ev)
 			cmd_str_trimmed = ft_strtrim(cmd_str);
 			if (cmd_str_trimmed && *cmd_str_trimmed)
 			{
-				si.cmd_current = lexer(cmd_str_trimmed, si.processors);
+				si.cmd_current = lexer(cmd_str_trimmed, &si);
 				exec(&si, si.cmd_current);
 				if (!si.cmd_history)
 				{

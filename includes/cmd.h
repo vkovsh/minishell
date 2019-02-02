@@ -104,13 +104,13 @@ void				arbitrary_processor(SHELL *s, CMD *c);
 ** Returns a list of t_cmd structures
 */
 t_list				*lexer(const char *cmd_txt,
-					t_processor	*processors);
+					SHELL *s);
 
 /*
 ** Function for creation command entity of type t_cmd
 */
 t_cmd				create_command(const char *cmd_txt,
-					t_processor *ptable);
+					SHELL *s);
 
 /*
 ** Deletes command entity
