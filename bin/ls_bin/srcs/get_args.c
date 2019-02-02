@@ -97,7 +97,7 @@ int				set_catalog_from_arg(t_bintree **args,
 	else if (IS_FLAG_SET(g_ftls->flags, LS_BIG_S))
 	{
 		key = (void *)&(tmp.clstat->st_size);
-		key_size = sizeof(__off_t);
+		key_size = sizeof(key);
 	}
 	else if (IS_FLAG_SET(g_ftls->flags, LS_SMALL_T))
 	{

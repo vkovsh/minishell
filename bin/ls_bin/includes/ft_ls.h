@@ -21,7 +21,12 @@
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <sys/xattr.h>
-# include <sys/sysmacros.h>
+# ifdef __linux__
+#  include <sys/sysmacros.h>
+#  define LSTXAATR(path,buf,size) listxattr(path,buf,size)
+# else
+#  define LSTXAATR(path,buf,size) listxattr(path,buf,size,XATTR_NOFOLLOW)
+# endif
 # include <pwd.h>
 # include <grp.h>
 # include <time.h>

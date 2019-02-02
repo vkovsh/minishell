@@ -54,12 +54,11 @@ void					print_from_stat(t_catalog *c,
 		ft_printf("%-9zu", c->clstat->st_ino);
 	if (IS_FLAG_SET(g_ftls->flags, LS_SMALL_S))
 		ft_printf("%-4zu", c->clstat->st_blocks);
-	//char list[1024];
 	if (c->filetype == CHR_FILE || c->filetype == BLK_FILE)
 	{
 		ft_printf("%s%c%*d %-*s%-*s %*d,%*d %.12s %[*]{*}s",
 			perm,
-			listxattr(c->name, NULL, 0) ? '+' : ' ',
+			LSTXAATR(c->name, NULL, 0) ? '+' : ' ',
 			g_ftls->nlink_width, c->clstat->st_nlink,
 			g_ftls->pw_name_width + 1, pw->pw_name,
 			g_ftls->gr_name_width + 1, gr->gr_name,
@@ -74,7 +73,7 @@ void					print_from_stat(t_catalog *c,
 	{
 		ft_printf("%s%c%*d%*s%*s %*d %.12s %[*]{*}s",
 		perm,
-		listxattr(c->name, NULL, 0) ? '+' : ' ',
+		LSTXAATR(c->name, NULL, 0) ? '+' : ' ',
 		g_ftls->nlink_width, c->clstat->st_nlink,
 		g_ftls->pw_name_width + 1, pw->pw_name,
 		g_ftls->gr_name_width + 1, gr->gr_name,
