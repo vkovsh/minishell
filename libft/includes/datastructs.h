@@ -12,6 +12,7 @@
 
 #ifndef DATASTRUCTS_H
 # define DATASTRUCTS_H
+# include <stdarg.h>
 
 typedef enum		e_bool
 {

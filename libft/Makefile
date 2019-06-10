@@ -18,6 +18,7 @@ CC_FLAGS 			=	-Wall -Werror -Wextra -fPIC
 
 INC_PATH			=	./includes/
 OBJ_PATH			=	./obj/
+GCH_PATH			=	./gch/
 
 LIBFT_SRCS_PATH		=	./srcs/
 LIBFT_BASE_PATH		=	$(LIBFT_SRCS_PATH)base/
@@ -32,6 +33,7 @@ MACRO_PATH			=   $(LIBFT_PRINTF_PATH)macro/
 PARSER_PATH			=   $(LIBFT_PRINTF_PATH)parser/
 
 OBJ			=	$(addprefix $(OBJ_PATH),$(OBJ_NAME))
+GCH			=	$(addprefix $(GCH_PATH),$(GCH_NAME))
 
 INC			=	$(addprefix -I, $(INC_PATH))
 
@@ -44,6 +46,8 @@ OBJ_NAME    +=  $(MACRO_NAME:.c=.o)
 OBJ_NAME    +=  $(PARSER_NAME:.c=.o)
 OBJ_NAME	+=	$(LIBFT_STRING_NAME:.c=.o)
 OBJ_NAME	+=	$(LIBFT_DICT_NAME:.c=.o)
+
+GCH_NAME	=	$(INC_NAME:.h=.h.gch)
 
 LIBFT_DICT_NAME		=	init_dictionary.c
 
@@ -191,11 +195,23 @@ LIBFT_STREAM_NAME	=	ft_putchar.c		\
 						ft_putstr_fd.c		\
 						get_next_line.c
 
+INC_NAME	=			bintree.h			\
+						datastructs.h		\
+						dictionary.h		\
+						ft_printf.h			\
+						joinmacro.h			\
+						libft.h				\
+						s_string.h	
 all: a so
 
 so: $(DYNAMIC_NAME)
 
 a: $(STATIC_NAME)
+
+$(GCH_PATH)%.h.gch: $(INC_PATH)%.h
+	@mkdir -p $(GCH_PATH)
+	@$(CC) $(CC_FLAGS) -o $@ -c $<
+	@echo "Linking" [ $< ]
 
 $(DYNAMIC_NAME): $(OBJ)
 	@$(CC) -shared -o $@ $^
