@@ -20,12 +20,21 @@ t_bintree		*ft_bintree_find(t_bintree **t,
 	int			i;
 
 	find = *t;
-	while (find)
-		if (!(i = compare(key, find->key, key_size)))
+	while (find != NULL)
+	{
+		i = compare(key, find->key, key_size);
+		if (i == 0)
+		{
 			return (find);
+		}
 		else if (i < 0)
+		{
 			find = find->left;
+		}
 		else
+		{
 			find = find->right;
+		}
+	}
 	return (NULL);
 }

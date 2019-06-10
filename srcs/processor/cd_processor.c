@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-static void	change_exec_dir(SHELL *s, const char *cd_path)
+static void	change_exec_dir(shell *s, const char *cd_path)
 {
 	char	buf[PATH_MAX];
 
@@ -11,7 +11,7 @@ static void	change_exec_dir(SHELL *s, const char *cd_path)
 	s->prompt =	create_prompt(s->current_proc_path);
 }
 
-void		cd_processor(SHELL *s, CMD *c)
+void		cd_processor(shell *s, cmd *c)
 {
 	char	*cd_path;
 	

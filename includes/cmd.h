@@ -1,10 +1,7 @@
 #ifndef CMD_H
 # define CMD_H
-# define CMDS {"clear","ls","pwd","echo","cd","setenv","unsetenv","env","exit",""}
 # include "libft.h"
-# define SHELL struct s_shellinfo
-# define CMD struct s_cmd
-# define CLEAR_SCREEN_ANSI "\e[1;1H\e[2J"
+// # define CMDS {"clear","pwd","echo","cd","setenv","unsetenv","env","exit",""}
 # define ENV_I_M 0x01
 # define ENV_ZERO_M 0x02
 # define ENV_U_M 0x04
@@ -14,6 +11,9 @@
 
 struct s_shellinfo;
 struct s_cmd;
+
+typedef struct s_shellinfo shell;
+typedef struct s_cmd cmd;
 
 /*
 ** 	-i, --ignore-environment
@@ -41,7 +41,7 @@ typedef enum		e_envflags
 /*
 ** Command processor prototype
 */
-typedef void		(*t_processor)(SHELL *shell, CMD *cmd);
+typedef void		(*t_processor)(shell *shell, cmd *cmd);
 
 /*
 ** Command enumerator
@@ -49,17 +49,16 @@ typedef void		(*t_processor)(SHELL *shell, CMD *cmd);
 typedef enum		e_cmdnums
 {
 	INIT = -1,
-	CLEAR_ID,
-	LS_ID,
-	PWD_ID,
-	ECHO_ID,
-	CD_ID,
-	SETENV_ID,
-	UNSETENV_ID,
-	ENV_ID,
-	EXIT_ID,
-	ARBITRARY_ID,
-	CMD_TOTAL
+	CLEAR_ID = 0,
+	PWD_ID = 1,
+	ECHO_ID = 2,
+	CD_ID = 3,
+	SETENV_ID = 4,
+	UNSETENV_ID = 5,
+	ENV_ID = 6,
+	EXIT_ID = 7,
+	ARBITRARY_ID = 8,
+	CMD_TOTAL = 9,
 }					t_cmdnums;
 
 /*
@@ -88,34 +87,31 @@ typedef struct		s_cmd
 ** cmd - t_cmd struct
 ** Returns 0 on success and 1 if fails
 */
-void				clear_processor(SHELL *s, CMD *c);
-void				ls_processor(SHELL *s, CMD *c);
-void				pwd_processor(SHELL *s, CMD *c);
-void				echo_processor(SHELL *s, CMD *c);
-void				cd_processor(SHELL *s, CMD *c);
-void				setenv_processor(SHELL *s, CMD *c);
-void				unsetenv_processor(SHELL *s, CMD *c);
-void				env_processor(SHELL *s, CMD *c);
-void				exit_processor(SHELL *s, CMD *c);
-void				arbitrary_processor(SHELL *s, CMD *c);
+void				clear_processor(shell *s, cmd *c);
+void				pwd_processor(shell *s, cmd *c);
+void				echo_processor(shell *s, cmd *c);
+void				cd_processor(shell *s, cmd *c);
+void				setenv_processor(shell *s, cmd *c);
+void				unsetenv_processor(shell *s, cmd *c);
+void				env_processor(shell *s, cmd *c);
+void				exit_processor(shell *s, cmd *c);
+void				arbitrary_processor(shell *s, cmd *c);
 
 /*
 ** Function for parsing command text
 ** Returns a list of t_cmd structures
 */
-t_list				*lexer(const char *cmd_txt,
-					SHELL *s);
+t_list				*lexer(const char *cmd_txt, shell *s);
 
 /*
 ** Function for creation command entity of type t_cmd
 */
-t_cmd				create_command(const char *cmd_txt,
-					SHELL *s);
+t_cmd				create_command(const char *cmd_txt, shell *s);
 
 /*
 ** Deletes command entity
 */
-void				delete_command(t_cmd *cmd);
+void				delete_command(cmd *cmd);
 
 /*
 ** Executes list of commands

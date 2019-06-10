@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	unsetenv_processor(SHELL *s, CMD *c)
+void	unsetenv_processor(shell *s, cmd *c)
 {
 	(void)s;
 	ft_printf("CMD_NAME = %s\n", c->cmd_name);

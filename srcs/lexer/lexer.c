@@ -15,8 +15,7 @@ char			**trim_cmds(char **split_cmds)
 	return (result);
 }
 
-t_list			*lexer(const char *cmd_txt,
-				SHELL *s)
+t_list			*lexer(const char *cmd_txt, shell *s)
 {
 	char		**split_cmds = NULL;
 	t_list		*result = NULL;

@@ -1,8 +1,9 @@
 #include "minishell.h"
 
-void	clear_processor(SHELL *s, CMD *c)
+void	clear_processor(shell *s, cmd *c)
 {
+	const char clear_code[] = "\e[1;1H\e[2J";
 	(void)s;
 	c->cmd_status = EXEC_SUCCESS;
-	ft_printf("%s", CLEAR_SCREEN_ANSI);
+	ft_printf("%s", clear_code);
 }

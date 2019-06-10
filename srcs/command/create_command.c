@@ -3,7 +3,9 @@
 static t_cmdnums	init_cmd_id(const char *cmd)
 {
 	t_cmdnums		tmp;
-	const char	*cmds[CMD_TOTAL] = CMDS;
+	const char	*cmds[CMD_TOTAL] =
+		{"clear", "pwd", "echo", "cd",
+		"setenv", "unsetenv", "env", "exit",""};
 
 	tmp = INIT;
 	while (++tmp < CMD_TOTAL)
@@ -12,22 +14,20 @@ static t_cmdnums	init_cmd_id(const char *cmd)
 	return (ARBITRARY_ID);
 }
 
-static void			procede_spec_args(char **split_cmd,
-					SHELL *s)
+static void			procede_spec_args(char **split_cmd, shell *s)
 {
 	char			**it;
 	char			*trash;
 	size_t			len;
 
 	it = split_cmd;
-	while (*++it)
+	while (*++it != NULL)
 	{
 		if (**it == '$')
 		{
-			trash = *it; 
-			*it = ft_strdup(FIND(s->environ,
-							*it + 1,
-							ft_strlen(*it + 1)));
+			trash = *it;
+			*it = FIND(s->environ, *it + 1, ft_strlen(*it + 1));
+			*it = ft_strdup(*it ? *it : "");
 			ft_strdel(&trash);
 		}
 		else if (!ft_strcmp(*it, "~") || !ft_strcmp(*it, "~/"))
@@ -56,8 +56,7 @@ static void			procede_spec_args(char **split_cmd,
 	}
 }
 
-t_cmd				create_command(const char *cmd_txt,
-					SHELL *s)
+t_cmd				create_command(const char *cmd_txt, shell *s)
 {
 	char			**split_cmd;
 	t_cmd			new_cmd;

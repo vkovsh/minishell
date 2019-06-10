@@ -39,7 +39,6 @@ CMD_NAME	=	create_command.c	\
 LEXER_NAME	=	lexer.c
 
 PROC_NAME	=	clear_processor.c		\
-				ls_processor.c			\
 				pwd_processor.c			\
 				cd_processor.c			\
 				echo_processor.c		\

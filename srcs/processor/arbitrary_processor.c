@@ -19,7 +19,7 @@ static char	*exec_bin_path(const char *bin_name,
 	return (NULL);
 }
 
-void		arbitrary_processor(SHELL *s, CMD *c)
+void		arbitrary_processor(shell *s, cmd *c)
 {
 	char	**path;
 	char	*exec_path;

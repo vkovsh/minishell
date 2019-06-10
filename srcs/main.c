@@ -5,7 +5,7 @@ int				main(int ac, char **av, char **ev)
 	char		cmd_str[128] = {0};
 	ssize_t		count;
 	char		*cmd_str_trimmed;
-	SHELL		si;
+	shell		si;
 
 	(void)ac;
 	(void)av;

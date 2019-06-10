@@ -19,7 +19,7 @@ static uint8_t set_flag_mask(char f)
 			return (masks[e]);
 	return (0);
 }
-static void set_environ(SHELL *s,
+static void set_environ(shell *s,
 						uint8_t flags,
 						char ***environ)
 {
@@ -29,7 +29,7 @@ static void set_environ(SHELL *s,
 		*environ = s->env_array;
 }
 
-void env_processor(SHELL *s, CMD *c)
+void env_processor(shell *s, cmd *c)
 {
 	uint8_t flags;
 	int i;
@@ -68,6 +68,6 @@ void env_processor(SHELL *s, CMD *c)
 	}
 	else
 	{
-		if ((flags & ENV_ZERO_M) )
+		// if ((flags & ENV_ZERO_M) )
 	}
 }

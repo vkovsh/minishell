@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void		echo_processor(SHELL *s, CMD *c)
+void		echo_processor(shell *s, cmd *c)
 {
 	size_t	length;
 	char	**begin;

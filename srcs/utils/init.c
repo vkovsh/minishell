@@ -62,7 +62,6 @@ void		init_shellinfo(t_shellinfo *si, char **env)
 	si->cmd_history = NULL;
 	si->cmd_history_count = 0;
 	si->processors[CLEAR_ID] = clear_processor;
-	si->processors[LS_ID] = ls_processor;
 	si->processors[PWD_ID] = pwd_processor;
 	si->processors[ECHO_ID] = echo_processor;
 	si->processors[CD_ID] = cd_processor;

@@ -22,9 +22,7 @@ static void		del_item(t_dictionary *d,
 					d->del_node);
 }
 
-static void		*find(t_dictionary *d,
-				void *key,
-				size_t key_size)
+static void		*find(t_dictionary *d, void *key, size_t key_size)
 {
 	t_bintree	*node;
 
