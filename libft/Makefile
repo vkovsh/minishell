@@ -15,7 +15,7 @@ STATIC_NAME			=	libft.a
 DYNAMIC_NAME		=	libft.so
 
 CC 					=	gcc
-CC_FLAGS 			=	-Wall -Werror -Wextra -fPIC
+CC_FLAGS 			=	-Wall -Werror -Wextra -fPIC -g
 
 INC_PATH			=	./includes/ ./obj/
 OBJ_PATH			=	./obj/

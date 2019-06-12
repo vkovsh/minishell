@@ -2,7 +2,7 @@ TARGET_NAME	=	minishell
 
 CC			=	gcc
 # CC_FLAGS	=	-Wall -Werror -Wextra -fPIC -g
-CC_FLAGS	=	-Wall -Werror -Wextra
+CC_FLAGS	=	-Wall -Werror -Wextra -g
 DEL_DIR		=	rm -rf
 DEL			=	rm -f
 MAKE_LIBFT	=	make -C $(LIBFT_PATH)
