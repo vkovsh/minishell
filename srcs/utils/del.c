@@ -1,4 +1,5 @@
 #include "minishell.h"
+#include "ft_printf.h"
 
 void		delete_args_array(char **arr)
 {

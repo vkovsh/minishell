@@ -1,6 +1,7 @@
 #include "minishell.h"
 #include <stdio.h>
 #include <locale.h>
+#include "ft_printf.h"
 
 t_string		*create_prompt(const char *dir_name)
 {

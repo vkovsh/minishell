@@ -10,15 +10,15 @@
 #                                                                              #
 # **************************************************************************** #
 
+NAME				=	libft
 STATIC_NAME			=	libft.a
 DYNAMIC_NAME		=	libft.so
 
 CC 					=	gcc
 CC_FLAGS 			=	-Wall -Werror -Wextra -fPIC
 
-INC_PATH			=	./includes/
+INC_PATH			=	./includes/ ./obj/
 OBJ_PATH			=	./obj/
-GCH_PATH			=	./gch/
 
 LIBFT_SRCS_PATH		=	./srcs/
 LIBFT_BASE_PATH		=	$(LIBFT_SRCS_PATH)base/
@@ -33,9 +33,11 @@ MACRO_PATH			=   $(LIBFT_PRINTF_PATH)macro/
 PARSER_PATH			=   $(LIBFT_PRINTF_PATH)parser/
 
 OBJ			=	$(addprefix $(OBJ_PATH),$(OBJ_NAME))
-GCH			=	$(addprefix $(GCH_PATH),$(GCH_NAME))
+GCH			=	$(addprefix $(OBJ_PATH),$(GCH_NAME))
 
 INC			=	$(addprefix -I, $(INC_PATH))
+
+GCH_NAME	=	$(INC_NAME:.h=.h.gch)
 
 OBJ_NAME	=	$(SRC_NAME:.c=.o)
 OBJ_NAME	+=	$(LIBFT_BASE_NAME:.c=.o)
@@ -46,8 +48,6 @@ OBJ_NAME    +=  $(MACRO_NAME:.c=.o)
 OBJ_NAME    +=  $(PARSER_NAME:.c=.o)
 OBJ_NAME	+=	$(LIBFT_STRING_NAME:.c=.o)
 OBJ_NAME	+=	$(LIBFT_DICT_NAME:.c=.o)
-
-GCH_NAME	=	$(INC_NAME:.h=.h.gch)
 
 LIBFT_DICT_NAME		=	init_dictionary.c
 
@@ -202,83 +202,83 @@ INC_NAME	=			bintree.h			\
 						joinmacro.h			\
 						libft.h				\
 						s_string.h	
-all: a so
+all: a
 
 so: $(DYNAMIC_NAME)
 
 a: $(STATIC_NAME)
 
-$(GCH_PATH)%.h.gch: $(INC_PATH)%.h
-	@mkdir -p $(GCH_PATH)
+$(OBJ_PATH)%.h.gch: ./includes/%.h
+	@mkdir -p $(OBJ_PATH)
 	@$(CC) $(CC_FLAGS) -o $@ -c $<
-	@echo "Linking" [ $< ]
+	@echo "Compiling" [ $< ]
 
 $(DYNAMIC_NAME): $(OBJ)
 	@$(CC) -shared -o $@ $^
-	@echo "Compiling" [ $(DYNAMIC_NAME) ]
+	@echo "Linking" [ $(DYNAMIC_NAME) ]
 
-$(STATIC_NAME): $(OBJ)
+$(STATIC_NAME): $(GCH) $(OBJ)
 	@ar rc $@ $^
 	@ranlib $@
-	@echo "Compiling" [ $(STATIC_NAME) ]
+	@echo "Linking" [ $(STATIC_NAME) ]
 
 $(OBJ_PATH)%.o: $(LIBFT_DICT_PATH)%.c
 	@mkdir -p $(OBJ_PATH)
 	@$(CC) $(CC_FLAGS) -o $@ -c $< $(INC)
-	@echo "Linking" [ $< ]
+	@echo "Compiling" [ $< ]
 
 $(OBJ_PATH)%.o: $(LIBFT_STRING_PATH)%.c
 	@mkdir -p $(OBJ_PATH)
 	@$(CC) $(CC_FLAGS) -o $@ -c $< $(INC)
-	@echo "Linking" [ $< ]
+	@echo "Compiling" [ $< ]
 
 $(OBJ_PATH)%.o: $(LIBFT_PRINTF_PATH)%.c
 	@mkdir -p $(OBJ_PATH)
 	@$(CC) $(CC_FLAGS) -o $@ -c $< $(INC)
-	@echo "Linking" [ $< ]
+	@echo "Compiling" [ $< ]
 
 $(OBJ_PATH)%.o: $(LIBFT_BASE_PATH)%.c
 	@mkdir -p $(OBJ_PATH)
 	@$(CC) $(CC_FLAGS) -o $@ -c $< $(INC)
-	@echo "Linking" [ $< ]
+	@echo "Compiling" [ $< ]
 
 $(OBJ_PATH)%.o: $(LIBFT_BINTREE_PATH)%.c
 	@mkdir -p $(OBJ_PATH)
 	@$(CC) $(CC_FLAGS) -o $@ -c $< $(INC)
-	@echo "Linking" [ $< ]
+	@echo "Compiling" [ $< ]
 
 $(OBJ_PATH)%.o: $(LIBFT_LIST_PATH)%.c
 	@mkdir -p $(OBJ_PATH)
 	@$(CC) $(CC_FLAGS) -o $@ -c $< $(INC)
-	@echo "Linking" [ $< ]
+	@echo "Compiling" [ $< ]
 
 $(OBJ_PATH)%.o: $(LIBFT_STREAM_PATH)%.c
 	@mkdir -p $(OBJ_PATH)
 	@$(CC) $(CC_FLAGS) -o $@ -c $< $(INC)
-	@echo "Linking" [ $< ]
+	@echo "Compiling" [ $< ]
 
 $(OBJ_PATH)%.o: $(MACRO_PATH)%.c
 	@mkdir -p $(OBJ_PATH)
 	@$(CC) $(CC_FLAGS) -o $@ -c $< $(INC)
-	@echo "Linking" [ $< ]
+	@echo "Compiling" [ $< ]
 
 $(OBJ_PATH)%.o: $(PARSER_PATH)%.c
 	@mkdir -p $(OBJ_PATH)
 	@$(CC) $(CC_FLAGS) -o $@ -c $< $(INC)
-	@echo "Linking" [ $< ]
+	@echo "Compiling" [ $< ]
 
 clean:
 	@rm -rf $(OBJ_PATH)
-	@echo "Cleaning obj [ $(STATIC_NAME) ]..."
+	@rm -rf $(GCH_PATH)
+	@echo "Cleaning obj" [ $(NAME) ]
 
 fclean: clean
 	@rm -f $(STATIC_NAME)
 	@rm -f $(DYNAMIC_NAME)
-	@echo "Remove..." [ $(STATIC_NAME) ]
-	@echo "Remove..." [ $(DYNAMIC_NAME) ]
+	@echo "Remove" [ $(NAME) ]
 
 re: fclean all
 
-.PHONY: all clean fclean re so
+.PHONY: all clean fclean re so a
 
-.NOTPARALLEL: all clean fclean re so
+.NOTPARALLEL: all clean fclean re so a

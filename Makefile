@@ -1,12 +1,13 @@
 TARGET_NAME	=	minishell
 
 CC			=	gcc
-CC_FLAGS	=	-Wall -Werror -Wextra -fPIC -g
+# CC_FLAGS	=	-Wall -Werror -Wextra -fPIC -g
+CC_FLAGS	=	-Wall -Werror -Wextra
 DEL_DIR		=	rm -rf
 DEL			=	rm -f
 MAKE_LIBFT	=	make -C $(LIBFT_PATH)
 
-INC_PATH	=	./includes/ $(LIBFT_PATH)includes/
+INC_PATH	=	./includes/ $(LIBFT_PATH)includes/ ./obj/ $(LIBFT_PATH)obj/
 OBJ_PATH	=	./obj/
 SRC_PATH	=	./srcs/
 LEXER_PATH	=	$(SRC_PATH)/lexer/
@@ -16,7 +17,11 @@ UTILS_PATH	=	$(SRC_PATH)/utils/
 LIBFT_PATH	=	./libft/
 
 OBJ			=	$(addprefix $(OBJ_PATH),$(OBJ_NAME))
-INC			=	$(addprefix -I, $(INC_PATH))
+GCH			=	$(addprefix $(OBJ_PATH),$(GCH_NAME))
+
+INC			=	$(addprefix -I,$(INC_PATH))
+
+GCH_NAME	=	$(HEADERS:.h=.h.gch)
 
 OBJ_NAME	=	$(SRC_NAME:.c=.o)
 OBJ_NAME	+=	$(LEXER_NAME:.c=.o)
@@ -48,37 +53,46 @@ PROC_NAME	=	clear_processor.c		\
 				unsetenv_processor.c	\
 				arbitrary_processor.c
 
+HEADERS		=	minishell.h
+
 all: $(TARGET_NAME)
 
-$(TARGET_NAME): $(OBJ)
-	@$(MAKE_LIBFT) so
-	@$(CC) -o $(TARGET_NAME) $(OBJ) $(LIBFT_PATH)libft.so
-	@echo "Compiling" [ $(TARGET_NAME) ]
+create_lib:
+	$(MAKE_LIBFT)
+
+$(TARGET_NAME): create_lib $(GCH) $(OBJ)
+	@$(CC) -o $(TARGET_NAME) $(OBJ) $(LIBFT_PATH)libft.a
+	@echo "Linking" [ $(TARGET_NAME) ]
+
+$(OBJ_PATH)%.h.gch: ./includes/%.h
+	@mkdir -p $(OBJ_PATH)
+	@$(CC) $(CC_FLAGS) -o $@ -c $< $(INC)
+	@echo "Compiling" [ $< ]
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@mkdir -p $(OBJ_PATH)
 	@$(CC) $(CC_FLAGS) -o $@ -c $< $(INC)
-	@echo "Linking" [ $< ]
+	@echo "Compiling" [ $< ]
 
 $(OBJ_PATH)%.o: $(LEXER_PATH)%.c
 	@mkdir -p $(OBJ_PATH)
 	@$(CC) $(CC_FLAGS) -o $@ -c $< $(INC)
-	@echo "Linking" [ $< ]
+	@echo "Compiling" [ $< ]
 
 $(OBJ_PATH)%.o: $(PROC_PATH)%.c
 	@mkdir -p $(OBJ_PATH)
 	@$(CC) $(CC_FLAGS) -o $@ -c $< $(INC)
-	@echo "Linking" [ $< ]
+	@echo "Compiling" [ $< ]
 
 $(OBJ_PATH)%.o: $(CMD_PATH)%.c
 	@mkdir -p $(OBJ_PATH)
 	@$(CC) $(CC_FLAGS) -o $@ -c $< $(INC)
-	@echo "Linking" [ $< ]
+	@echo "Compiling" [ $< ]
 
 $(OBJ_PATH)%.o: $(UTILS_PATH)%.c
 	@mkdir -p $(OBJ_PATH)
 	@$(CC) $(CC_FLAGS) -o $@ -c $< $(INC)
-	@echo "Linking" [ $< ]
+	@echo "Compiling" [ $< ]
 
 clean:
 	@$(MAKE_LIBFT) clean

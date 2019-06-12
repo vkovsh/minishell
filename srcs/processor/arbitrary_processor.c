@@ -1,4 +1,5 @@
 #include "minishell.h"
+#include "ft_printf.h"
 
 static char	*exec_bin_path(const char *bin_name,
 						char **path)

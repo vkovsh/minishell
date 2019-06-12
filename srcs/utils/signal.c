@@ -1,5 +1,5 @@
 #include "minishell.h"
-
+#include "ft_printf.h"
 
 void	signal_handler(int sig_num)
 {

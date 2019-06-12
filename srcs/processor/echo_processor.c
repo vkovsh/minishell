@@ -1,4 +1,5 @@
 #include "minishell.h"
+#include "libft.h"
 
 void		echo_processor(shell *s, cmd *c)
 {

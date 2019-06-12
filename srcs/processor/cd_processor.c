@@ -1,4 +1,5 @@
 #include "minishell.h"
+#include "ft_printf.h"
 
 static void	change_exec_dir(shell *s, const char *cd_path)
 {

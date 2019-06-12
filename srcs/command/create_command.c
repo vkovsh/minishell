@@ -1,4 +1,5 @@
 #include "minishell.h"
+#include "ft_printf.h"
 
 static t_cmdnums	init_cmd_id(const char *cmd)
 {

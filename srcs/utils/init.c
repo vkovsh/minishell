@@ -1,4 +1,5 @@
 #include "minishell.h"
+#include "ft_printf.h"
 
 t_shellinfo	*g_si = NULL;
 

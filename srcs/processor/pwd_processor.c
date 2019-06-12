@@ -1,4 +1,5 @@
 #include "minishell.h"
+#include "ft_printf.h"
 
 void	pwd_processor(shell *s, cmd *c)
 {

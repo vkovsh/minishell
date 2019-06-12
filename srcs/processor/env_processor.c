@@ -1,4 +1,5 @@
 #include "minishell.h"
+#include "stdlib.h"
 /*
 static void			print(void *k, size_t k_size,
 						void *v, size_t v_size)

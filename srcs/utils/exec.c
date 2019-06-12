@@ -1,4 +1,5 @@
 #include "minishell.h"
+#include "ft_printf.h"
 
 int			exec(void *shell, t_list *commands)
 {
