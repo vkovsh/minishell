@@ -5,24 +5,16 @@
 # define DELETE(d,k) d->del_item(d,k) 
 # define FIND(d,k,size) d->find(d,k,size)
 # define CLEAR(d) d->clear(d)
-# define ITEM(k,k_s,v,v_s) (t_item){k,k_s,v,v_s}
+# define ITEM(k,k_s,v,v_s) (t_node){k,k_s,v,v_s}
 # define SIZE(d) (d->size)
 
-struct				s_item;
 struct				s_dictionary;
 
-typedef void		(*t_insert)(struct s_dictionary *d, struct s_item item);
-typedef void		(*t_del_item)(struct s_dictionary *d, void *key, size_t key_size);
-typedef void		*(*t_find)(struct s_dictionary *d, void *key, size_t key_size);
+typedef void		(*t_insert)(struct s_dictionary *d, t_node *item);
+typedef void		(*t_del_item)(struct s_dictionary *d, const void *key, const size_t key_size);
+typedef void		*(*t_find)(struct s_dictionary *d, const void *key, const size_t key_size);
 typedef void		(*t_clear)(struct s_dictionary *d);
-
-typedef struct		s_item
-{
-	void			*key;
-	size_t			key_size;
-	void			*value;
-	size_t			value_size;
-}					t_item;
+typedef void		**(*t_data)(const struct s_dictionary *d);
 
 typedef struct		s_dictionary
 {
@@ -34,6 +26,7 @@ typedef struct		s_dictionary
 	t_compare_keys	compare;
 	t_clear			clear;
 	t_del_node		del_node;
+	t_data			data;
 }					t_dictionary;
 
 void				init_dictionary(t_dictionary **d,

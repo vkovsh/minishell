@@ -13,17 +13,17 @@
 #include "libft.h"
 
 void	ft_bintree_add(t_bintree **t,
-		t_bintree *node,
+		t_bintree *entry,
 		t_compare_keys compare)
 {
 	if (*t == NULL)
-		*t = node;
+		*t = entry;
 	else
 	{
-		if (compare(node->key, (*t)->key, node->key_size) < 0)
-			ft_bintree_add(&((*t)->left), node, compare);
+		if (compare(entry->node.key, (*t)->node.key, entry->node.key_size) < 0)
+			ft_bintree_add(&((*t)->left), entry, compare);
 		else
-			ft_bintree_add(&((*t)->right), node, compare);
+			ft_bintree_add(&((*t)->right), entry, compare);
 		*t = ft_balance(*t);
 	}
 }

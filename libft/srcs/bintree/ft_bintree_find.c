@@ -13,7 +13,8 @@
 #include "libft.h"
 
 t_bintree		*ft_bintree_find(t_bintree **t,
-				void *key, size_t key_size,
+				const void *key,
+				const size_t key_size,
 				t_compare_keys compare)
 {
 	t_bintree	*find;
@@ -22,7 +23,7 @@ t_bintree		*ft_bintree_find(t_bintree **t,
 	find = *t;
 	while (find != NULL)
 	{
-		i = compare(key, find->key, key_size);
+		i = compare(key, find->node.key, key_size);
 		if (i == 0)
 		{
 			return (find);

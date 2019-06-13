@@ -13,23 +13,20 @@
 #include "libft.h"
 #include <unistd.h>
 
-t_bintree		*ft_bintree_new(const void *key,
-				size_t key_size,
-				const void *value,
-				size_t value_size)
+t_bintree		*ft_bintree_new(const t_node *item)
 {
 	t_bintree	*bintree;
 
 	if (!(bintree = (t_bintree *)malloc(sizeof(t_bintree))))
 		return (NULL);
-	if (!(bintree->value = malloc(value_size)))
+	if (!(bintree->node.value = malloc(item->value_size)))
 		return (NULL);
-	ft_memcpy(bintree->value, value, value_size);
-	bintree->value_size = value_size;
-	if (!(bintree->key = malloc(key_size)))
+	ft_memcpy(bintree->node.value, item->value, item->value_size);
+	bintree->node.value_size = item->value_size;
+	if (!(bintree->node.key = malloc(item->key_size)))
 		return (NULL);
-	ft_memcpy(bintree->key, key, key_size);
-	bintree->key_size = key_size;
+	ft_memcpy(bintree->node.key, item->key, item->key_size);
+	bintree->node.key_size = item->key_size;
 	bintree->left = NULL;
 	bintree->right = NULL;
 	bintree->height = 1;

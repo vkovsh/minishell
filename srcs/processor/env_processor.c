@@ -1,5 +1,6 @@
 #include "minishell.h"
 #include "stdlib.h"
+#include "ft_printf.h"
 
 /*
 static void			print(void *k, size_t k_size,
@@ -25,10 +26,23 @@ static void set_environ(shell *s,
 						uint8_t flags,
 						char ***environ)
 {
-	if (flags & ENV_I_M)
-		*environ = NULL;
-	else if (!flags)
-		*environ = s->env_array;
+	// if (flags & ENV_I_M)
+	// 	*environ = NULL;
+	// else if (!flags)
+	int i = -1;
+	while (s->env_array[++i])
+	{
+		ft_printf("[[%s]]\n", s->env_array[i]);
+	}
+	(void)flags;
+	size_t env_count = SIZE(s->environ);
+	*environ = (char **)malloc(sizeof(char *) * (env_count + 1));
+	if (environ == NULL)
+	{
+		return ;
+	}
+	
+		// *environ = s->env_array;
 }
 
 void env_processor(shell *s, cmd *c)

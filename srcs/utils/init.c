@@ -17,27 +17,26 @@ static void	set_environ(t_dictionary *d, char **e)
 {
 	char	**p;
 	char	*begin;
+	t_node	node;
 
 	begin = *e;
 	while (*e)
 	{
 		p = ft_strsplit(*e++, '=');
-		INSERT(d, ITEM(*p,
+		node = ITEM(*p,
 					ft_strlen(*p) + 1,
 					p[1],
-					ft_strlen(p[1]) + 1));
+					ft_strlen(p[1]) + 1);
+		INSERT(d, &node);
 		delete_args_array(p);
 	}
 	*e = begin;
 }
 
-static void	del_node(void *k, size_t k_size,
-					void *data, size_t data_size)
+static void	del_node(t_node *item)
 {
-	free(k);
-	free(data);
-	(void)k_size;
-	(void)data_size;
+	free(item->key);
+	free(item->value);
 }
 
 void		init_shellinfo(t_shellinfo *si, char **env)
