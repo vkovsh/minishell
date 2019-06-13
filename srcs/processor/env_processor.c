@@ -22,28 +22,29 @@ static uint8_t set_flag_mask(char f)
 			return (masks[e]);
 	return (0);
 }
-static void set_environ(shell *s,
-						uint8_t flags,
-						char ***environ)
-{
+
+// static void set_environ(const shell *s,
+// 						const uint8_t flags,
+// 						char ***environ)
+// {
 	// if (flags & ENV_I_M)
 	// 	*environ = NULL;
 	// else if (!flags)
-	int i = -1;
-	while (s->env_array[++i])
-	{
-		ft_printf("[[%s]]\n", s->env_array[i]);
-	}
-	(void)flags;
-	size_t env_count = SIZE(s->environ);
-	*environ = (char **)malloc(sizeof(char *) * (env_count + 1));
-	if (environ == NULL)
-	{
-		return ;
-	}
+	// int i = -1;
+	// while (s->env_array[++i])
+	// {
+	// 	ft_printf("[[%s]]\n", s->env_array[i]);
+	// }
+	// (void)flags;
+	// size_t env_count = SIZE(s->environ);
+	// *environ = (char **)malloc(sizeof(char *) * (env_count + 1));
+	// if (environ == NULL)
+	// {
+	// 	return ;
+	// }
 	
 		// *environ = s->env_array;
-}
+// }
 
 void env_processor(shell *s, cmd *c)
 {
@@ -62,9 +63,32 @@ void env_processor(shell *s, cmd *c)
 	{
 		j = 1;
 		while (c->cmd_args[i][j])
+		{
 			flags |= set_flag_mask(c->cmd_args[i][j++]);
+		}
 	}
-	set_environ(s, flags, &cmd_environ);
+	// set_environ(s, flags, &cmd_environ);
+	
+	t_list	*tmp = NULL;
+	size_t addition = 0;
+	while (ft_strchr(c->cmd_args[i], '=') != NULL)
+	{
+		ft_lstadd(&tmp, ft_lstnew(c->cmd_args[i], ft_strlen(c->cmd_args[i]) + 1));
+		i++;
+		addition++;
+	}
+	size_t result_size = addition;
+	if ((flags & ENV_I_M) == 0)
+	{
+		result_size += SIZE(s->environ);
+	}
+	cmd_environ = (char **)malloc(sizeof(char *) * (result_size + 1));
+	cmd_environ[result_size] = NULL;
+	// if (flags & ENV_I_M == 0)
+	// {
+
+	// }
+	
 	if (c->cmd_args[i])
 		cmd_name = c->cmd_args[i];
 	cmd_args = &c->cmd_args[i];

@@ -2,8 +2,20 @@
 
 static void		insert(t_dictionary *d, t_node *item)
 {
-	d->size++;
-	ft_bintree_add(&(d->array), ft_bintree_new(item), d->compare);
+	t_bintree	*exist;
+
+	exist = NULL;
+	exist = ft_bintree_find(&(d->array), item->key, item->key_size, d->compare);
+	if (exist == NULL)
+	{
+		d->size++;
+		ft_bintree_add(&(d->array), ft_bintree_new(item), d->compare);
+	}
+	else
+	{
+		ft_bintree_remove(d->array, item->key, item->key_size, d->compare, d->del_node);
+		ft_bintree_add(&(d->array), ft_bintree_new(item), d->compare);
+	}
 }
 
 static void		del_item(t_dictionary *d,
