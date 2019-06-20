@@ -33,6 +33,11 @@ static void	set_environ(t_dictionary *d, char **e)
 	*e = begin;
 }
 
+static void	del_key_value(void *o)
+{
+	free()
+}
+
 static void	del_node(t_node *item)
 {
 	free(item->key);

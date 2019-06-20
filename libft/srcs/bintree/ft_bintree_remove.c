@@ -29,26 +29,31 @@ t_bintree		*ft_bintree_remove(t_bintree *p,
 					const void *key,
 					const size_t key_size,
 					t_compare_keys cmp,
-					t_del_node del)
+					t_del *del_struct)
 {
 	int			cmp_res;
 	t_bintree	*q;
 	t_bintree	*r;
 	t_bintree	*min;
 
-	if (!p)
+	if (p == NULL)
 		return (NULL);
-	if ((cmp_res = cmp(key, p->node.key, key_size)) < 0)
+	cmp_res = cmp(key, p->node.key, key_size);
+	if (cmp_res < 0)
+	{
 		p->left = ft_bintree_remove(p->left, key,
-					key_size, cmp, del);
+					key_size, cmp, del_struct);
+	}
 	else if (cmp_res > 0)
+	{
 		p->right = ft_bintree_remove(p->right, key,
-					key_size, cmp, del);
+					key_size, cmp, del_struct);
+	}
 	else
 	{
 		q = p->left;
 		r = p->right;
-		ft_bintree_delone(&p, del);
+		ft_bintree_delone(&p, del_struct);
 		if (!r)
 			return (q);
 		min = findmin(r);

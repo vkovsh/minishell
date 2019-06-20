@@ -13,9 +13,9 @@
 #include "libft.h"
 
 void	ft_bintree_delone(t_bintree **t,
-		t_del_node del)
+		t_del *del_struct)
 {
-	del(&((*t)->node));
+	del_struct->del_node(&((*t)->node), del_struct->del_k, del_struct->del_v);
 	free(*t);
 	*t = NULL;
 }

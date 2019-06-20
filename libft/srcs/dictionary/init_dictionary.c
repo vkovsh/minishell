@@ -13,7 +13,7 @@ static void		insert(t_dictionary *d, t_node *item)
 	}
 	else
 	{
-		ft_bintree_remove(d->array, item->key, item->key_size, d->compare, d->del_node);
+		ft_bintree_remove(d->array, item->key, item->key_size, d->compare, d->del_struct);
 		ft_bintree_add(&(d->array), ft_bintree_new(item), d->compare);
 	}
 }
@@ -26,7 +26,7 @@ static void		del_item(t_dictionary *d,
 					key,
 					key_size,
 					d->compare,
-					d->del_node);
+					d->del_struct);
 }
 
 static void		*find(t_dictionary *d, const void *key, const size_t key_size)
@@ -42,15 +42,17 @@ static void		*find(t_dictionary *d, const void *key, const size_t key_size)
 
 static void		clear(t_dictionary *d)
 {
-	ft_bintree_del(&(d->array),
-			d->del_node);
+	ft_bintree_del(&(d->array), d->del_node);
 	d->array = NULL;
 }
 
 // static void		**data(t_dictionary *d)
 // {
-
 // }
+static void		del_key_value(void *o)
+{
+	free(o);
+}
 
 void			init_dictionary(t_dictionary **d,
 					t_compare_keys cmp_f,
@@ -64,5 +66,5 @@ void			init_dictionary(t_dictionary **d,
 	(*d)->insert = insert;
 	(*d)->del_item = del_item;
 	(*d)->clear = clear;
-	(*d)->del_node = del_node;
+	(*d)->del_struct = (t_del){del_key_value, del_key_value, del_node};
 }

@@ -26,7 +26,7 @@ typedef struct		s_dictionary
 	t_find			find;
 	t_compare_keys	compare;
 	t_clear			clear;
-	t_del_node		del_node;
+	t_del			del_struct;
 	t_data			data;
 	t_clone			clone;
 }					t_dictionary;
