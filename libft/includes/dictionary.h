@@ -33,5 +33,5 @@ typedef struct		s_dictionary
 
 void				init_dictionary(t_dictionary **d,
 						t_compare_keys cmp_f,
-						t_del_node del_node);
+						const t_del *del_struct);
 #endif

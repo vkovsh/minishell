@@ -35,7 +35,7 @@ typedef struct			s_bintree
 
 typedef int		(*t_compare_keys)(const void *key1, const void *key2, size_t key_size);
 
-typedef void	(*t_node_action)(t_node *node);
+typedef void	*(*t_node_action)(t_node *node, void *out);
 
 typedef void	(*t_del_value)(void *value);
 
@@ -73,13 +73,21 @@ void					ft_bintree_delone(t_bintree **t, t_del *del_struct);
 
 void					ft_bintree_del(t_bintree **t, t_del *del_struct);
 
-void					ft_bintree_infix_traverse(t_bintree **t, t_node_action action);
+void					ft_bintree_infix_traverse(t_bintree **t,
+							t_node_action action,
+							void *out);
 
-void					ft_bintree_prefix_traverse(t_bintree **t, t_node_action action);
+void					ft_bintree_prefix_traverse(t_bintree **t,
+							t_node_action action,
+							void *out);
 
-void					ft_bintree_postfix_traverse(t_bintree **t, t_node_action action);
+void					ft_bintree_postfix_traverse(t_bintree **t,
+							t_node_action action,
+							void *out);
 
-void					ft_bintree_infix_traverse_reverse(t_bintree **t, t_node_action action);
+void					ft_bintree_infix_traverse_reverse(t_bintree **t,
+							t_node_action action,
+							void *out);
 
 /*
 ** Arguments:	t_bintree **t - adress of tree main node

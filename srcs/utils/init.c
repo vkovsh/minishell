@@ -33,26 +33,27 @@ static void	set_environ(t_dictionary *d, char **e)
 	*e = begin;
 }
 
-static void	del_key_value(void *o)
-{
-	free()
-}
+// static void	del_key_value(void *o)
+// {
+// 	free(o);
+// }
 
-static void	del_node(t_node *item)
+static void	del_node(t_node *item, t_del_key del_k, t_del_value del_v)
 {
-	free(item->key);
-	free(item->value);
+	del_k(item->key);
+	del_v(item->value);
 }
 
 void		init_shellinfo(t_shellinfo *si, char **env)
 {
 	char	working_dir[256];
+	const t_del del_struct = (t_del){free, free, del_node};
 
 	g_si = si;
 	signal(SIGINT, handle_signal);
 	getcwd(working_dir, 256);
 	si->environ = NULL;
-	init_dictionary(&si->environ, ft_memcmp, del_node);
+	init_dictionary(&si->environ, ft_memcmp, &del_struct);
 	set_environ(si->environ, env);
 	si->env_array = NULL;
 	si->env_array = (char **)malloc(sizeof(char *) * (SIZE(si->environ) + 1));
