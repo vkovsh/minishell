@@ -1,4 +1,4 @@
-#include "libft.h"
+#include "ft_printf.h"
 
 static void		insert(t_dictionary *d, t_node *item)
 {
@@ -47,11 +47,21 @@ static void		clear(t_dictionary *d)
 	d->array = NULL;
 }
 
-static t_dictionary	*clone(const t_dictionary *d)
+static void			add_node(t_node *node, void *out)
+{
+	t_dictionary	*new_d;
+
+	new_d = (t_dictionary *)out;
+	INSERT(new_d, node);
+}
+
+static t_dictionary	*clone(t_dictionary *d)
 {
 	t_dictionary	*new_d;
 
 	new_d = (t_dictionary *)malloc(sizeof(t_dictionary));
+	new_d->size = 0;
+	new_d->array = NULL;
 	new_d->clear = d->clear;
 	new_d->clone = d->clone;
 	new_d->compare = d->compare;
@@ -60,13 +70,33 @@ static t_dictionary	*clone(const t_dictionary *d)
 	new_d->del_struct = d->del_struct;
 	new_d->find = d->find;
 	new_d->insert = d->insert;
+	ft_bintree_infix_traverse(&(d->array), add_node, new_d);
 	return (new_d);
 }
 
-static void		**data(const t_dictionary *d)
+static void			add_arg_from_dict(t_node *node, void *out)
 {
-	(void)d;
-	return NULL;
+	static int index = 0;
+	void			**args;
+
+	if (node == NULL)
+	{
+		index = 0;
+		return ;
+	}
+	args = (void **)out;
+	args[index++] = ft_strjoin_free(node->key, ft_strjoin("=", node->value), FALSE, TRUE);
+}
+
+static void		**data(t_dictionary *d)
+{
+	void		**args;
+
+	args = (void **)malloc(sizeof(void *) * (d->size + 1));
+	args[d->size] = NULL;
+	add_arg_from_dict(NULL, NULL);
+	ft_bintree_infix_traverse(&(d->array), add_arg_from_dict, (void *)args);
+	return (args);
 }
 
 void			init_dictionary(t_dictionary **d,

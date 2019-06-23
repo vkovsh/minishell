@@ -14,8 +14,8 @@ typedef void		(*t_insert)(struct s_dictionary *d, t_node *item);
 typedef void		(*t_del_item)(struct s_dictionary *d, const void *key, const size_t key_size);
 typedef void		*(*t_find)(struct s_dictionary *d, const void *key, const size_t key_size);
 typedef void		(*t_clear)(struct s_dictionary *d);
-typedef void		**(*t_data)(const struct s_dictionary *d);
-typedef struct s_dictionary	*(*t_clone)(const struct s_dictionary *d);
+typedef void		**(*t_data)(struct s_dictionary *d);
+typedef struct s_dictionary	*(*t_clone)(struct s_dictionary *d);
 
 typedef struct		s_dictionary
 {

@@ -35,7 +35,7 @@ typedef struct			s_bintree
 
 typedef int		(*t_compare_keys)(const void *key1, const void *key2, size_t key_size);
 
-typedef void	*(*t_node_action)(t_node *node, void *out);
+typedef void	(*t_node_action)(t_node *node, void *out);
 
 typedef void	(*t_del_value)(void *value);
 
