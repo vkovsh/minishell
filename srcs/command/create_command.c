@@ -1,12 +1,12 @@
 #include "minishell.h"
 #include "ft_printf.h"
 
-static t_cmdnums	init_cmd_id(const char *cmd)
+static t_cmd_id	init_cmd_id(const char *cmd)
 {
-	t_cmdnums		tmp;
+	t_cmd_id	tmp;
 	const char	*cmds[CMD_TOTAL] =
-		{"clear", "pwd", "echo", "cd",
-		"setenv", "unsetenv", "env", "exit",""};
+				{"clear", "pwd", "echo", "cd",
+				"setenv", "unsetenv", "env", "exit", ""};
 
 	tmp = INIT;
 	while (++tmp < CMD_TOTAL)
@@ -15,11 +15,11 @@ static t_cmdnums	init_cmd_id(const char *cmd)
 	return (ARBITRARY_ID);
 }
 
-static void			procede_spec_args(char **split_cmd, shell *s)
+static void		procede_spec_args(char **split_cmd, shell *s)
 {
-	char			**it;
-	char			*trash;
-	size_t			len;
+	char		**it;
+	char		*trash;
+	size_t		len;
 
 	it = split_cmd;
 	while (*++it != NULL)
@@ -57,12 +57,22 @@ static void			procede_spec_args(char **split_cmd, shell *s)
 	}
 }
 
-t_cmd				create_command(const char *cmd_txt, shell *s)
+t_cmd			create_command(const char *cmd_txt, shell *s)
 {
-	char			**split_cmd;
-	t_cmd			new_cmd;
-	t_cmdnums		cmd_id;
+	char		**split_cmd;
+	t_cmd		new_cmd;
+	t_cmd_id	cmd_id;
+	char		*space_delim_p;
 
+	ft_memset(&new_cmd, 0, sizeof(new_cmd));
+	new_cmd.cmd_args_count = 1;
+	space_delim_p = (char *)cmd_txt;
+	while ((space_delim_p = ft_strchr(space_delim_p, ' ')) != NULL)
+	{
+		space_delim_p++;
+		new_cmd.cmd_args_count++;
+	}
+	ft_printf("[%d]\n", new_cmd.cmd_args_count);
 	split_cmd = ft_strsplit(cmd_txt, ' ');
 	procede_spec_args(split_cmd, s);
 	cmd_id = init_cmd_id(split_cmd[0]);

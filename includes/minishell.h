@@ -59,7 +59,7 @@ typedef void		(*t_processor)(shell *shell, cmd *cmd);
 /*
 ** Command enumerator
 */
-typedef enum		e_cmdnums
+typedef enum		e_cmd_id
 {
 	INIT = -1,
 	CLEAR_ID = 0,
@@ -72,7 +72,7 @@ typedef enum		e_cmdnums
 	EXIT_ID = 7,
 	ARBITRARY_ID = 8,
 	CMD_TOTAL = 9,
-}					t_cmdnums;
+}					t_cmd_id;
 
 /*
 ** Command status enumerator
@@ -89,10 +89,11 @@ typedef enum		s_cmdstatus
 */
 typedef struct		s_cmd
 {
-	t_cmdnums		cmd_id;
+	t_cmd_id		cmd_id;
 	char			*cmd_name;
 	t_cmdstatus		cmd_status;
 	char			**cmd_args;
+	size_t			cmd_args_count;
 	t_processor		cmd_processor;	
 }					t_cmd;
 

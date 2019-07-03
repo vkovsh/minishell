@@ -59,6 +59,12 @@ void env_processor(shell *s, cmd *c)
 	cmd_name = NULL;
 	cmd_args = NULL;
 	i = 0;
+	char **ff = s->env_array;
+	while (*ff)
+	{
+		ft_printf("%s\n", *ff++);
+	}
+	return ;
 	while (c->cmd_args[++i] && *(c->cmd_args[i]) == '-')
 	{
 		j = 1;

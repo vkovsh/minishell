@@ -15,18 +15,18 @@ int				main(int ac, char **av, char **ev)
 	display_prompt(si.prompt);
 	ft_memset(cmd_str, 0, 128);
 
-	t_dictionary *new_dict = si.environ->clone(si.environ);
-	char **test_data = (char **)si.environ->data(si.environ);
-	char **test_data2 = (char **)new_dict->data(new_dict);
-	ft_putchar('\n');
-	while (*test_data != NULL && *test_data2 != NULL)
-	{
-		ft_printf("[%s]\n[%s]\n", *test_data++, *test_data2++);
-	}
-	if (*test_data != NULL || *test_data2 != NULL)
-	{
-		ft_printf("fail\n");
-	}
+	// t_dictionary *new_dict = si.environ->clone(si.environ);
+	// char **test_data = (char **)si.environ->data(si.environ);
+	// char **test_data2 = (char **)new_dict->data(new_dict);
+	// ft_putchar('\n');
+	// while (*test_data != NULL && *test_data2 != NULL)
+	// {
+	// 	ft_printf("[%s]\n[%s]\n", *test_data++, *test_data2++);
+	// }
+	// if (*test_data != NULL || *test_data2 != NULL)
+	// {
+	// 	ft_printf("fail\n");
+	// }
 
 	while ((count = read(STDIN, cmd_str, 128)))
 	{

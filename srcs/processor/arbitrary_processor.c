@@ -20,11 +20,11 @@ static char	*exec_bin_path(const char *bin_name,
 	return (NULL);
 }
 
-void		arbitrary_processor(shell *s, cmd *c)
+void			arbitrary_processor(shell *s, cmd *c)
 {
-	char	**path;
-	char	*exec_path;
-	pid_t	pid;
+	char		**path;
+	char		*exec_path;
+	pid_t		pid;
 
 	c->cmd_status = EXEC_SUCCESS;
 	path = NULL;
@@ -36,7 +36,9 @@ void		arbitrary_processor(shell *s, cmd *c)
 	if (pid == 0)
 	{
 		if ((exec_path = exec_bin_path(c->cmd_name, path)))
+		{
 			execve(exec_path, c->cmd_args, s->env_array);
+		}
 		c->cmd_status = EXEC_FAIL;
 		ft_printf("'%s' command is undefined\n", c->cmd_name);
 		exit(0);
