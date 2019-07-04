@@ -3,17 +3,7 @@
 
 static void	override_envarray(shell *s)
 {
-	// char	**envarray;
-	// char	*del_env_str;
-	// size_t	index;
-	// envarray = s->env_array;
-	// while (*envarray != NULL)
-	// {
-	// 	del_env_str = *envarray;
-	// 	envarray++;
-	// 	ft_strdel(&del_env_str);
-	// }
-	free(s->env_array);
+	delete_args_array(s->env_array);
 	s->env_array = (char **)s->environ->data(s->environ);
 }
 
@@ -44,5 +34,4 @@ void		setenv_processor(shell *s, cmd *c)
 		ft_printf("Usage: setenv <NAME> <VALUE>\n");
 		c->cmd_status = EXEC_FAIL;
 	}
-	
 }

@@ -23,11 +23,15 @@ static void		del_item(t_dictionary *d,
 				const void *key,
 				const size_t key_size)
 {
-	d->array = ft_bintree_remove(d->array,
+	const int res = ft_bintree_remove(&(d->array),
 								key,
 								key_size,
 								d->compare,
 								&(d->del_struct));
+	if (res == 0)
+	{
+		d->size--;
+	}
 }
 
 static void		*find(t_dictionary *d, const void *key, const size_t key_size)
@@ -45,6 +49,7 @@ static void		clear(t_dictionary *d)
 {
 	ft_bintree_del(&(d->array), &(d->del_struct));
 	d->array = NULL;
+	d->size = 0;
 }
 
 static void			add_node(t_node *node, void *out)
@@ -82,10 +87,12 @@ static void			add_arg_from_dict(t_node *node, void *out)
 	if (node == NULL)
 	{
 		index = 0;
-		return ;
 	}
-	args = (void **)out;
-	args[index++] = ft_strjoin_free(node->key, ft_strjoin("=", node->value), FALSE, TRUE);
+	else
+	{
+		args = (void **)out;
+		args[index++] = ft_strjoin_free(node->key, ft_strjoin("=", node->value), FALSE, TRUE);
+	}
 }
 
 static void		**data(t_dictionary *d)

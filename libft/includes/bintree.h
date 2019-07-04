@@ -96,7 +96,7 @@ void					ft_bintree_infix_traverse_reverse(t_bintree **t,
 **				t_compare_keys cmp - function for key compare
 ** Return:		Pointer to actual t_bintree 
 */
-t_bintree				*ft_bintree_remove(t_bintree *t,
+int				ft_bintree_remove(t_bintree **t,
 							const void *key,
 							const size_t key_size,
 							t_compare_keys cmp,

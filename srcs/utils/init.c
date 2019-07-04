@@ -33,11 +33,6 @@ static void	set_environ(t_dictionary *d, char **e)
 	*e = begin;
 }
 
-// static void	del_key_value(void *o)
-// {
-// 	free(o);
-// }
-
 static void	del_node(t_node *item, t_del_key del_k, t_del_value del_v)
 {
 	del_k(item->key);
@@ -55,10 +50,7 @@ void		init_shellinfo(t_shellinfo *si, char **env)
 	si->environ = NULL;
 	init_dictionary(&si->environ, ft_memcmp, &del_struct);
 	set_environ(si->environ, env);
-	si->env_array = NULL;
-	si->env_array = (char **)malloc(sizeof(char *) * (SIZE(si->environ) + 1));
-	si->env_array = ft_memcpy(si->env_array, env, sizeof(char *) * (SIZE(si->environ) + 1));
-	si->env_array[SIZE(si->environ)] = NULL;
+	si->env_array = (char **)si->environ->data(si->environ);
 	si->shell_exit = false;
 	si->current_proc_path = ft_strdup(working_dir);
 	si->init_proc_path = ft_strdup(working_dir);

@@ -7,7 +7,9 @@ void		delete_args_array(char **arr)
 
 	trash = arr;
 	while (*arr)
+	{
 		ft_strdel(arr++);
+	}
 	free(trash);
 }
 
@@ -41,8 +43,8 @@ void	delete_shellinfo(t_shellinfo *s)
 	ft_strdel(&s->init_proc_path);
 	ft_strdel(&s->bin_path);
 	delete_string(s->prompt);
+	delete_args_array(s->env_array);
 	ft_lstdel(&(s->cmd_history), del_cmd_entry);
 	CLEAR(s->environ);
 	free(s->environ);
-	free(s->env_array);
 }
