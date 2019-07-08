@@ -43,8 +43,17 @@ void env_processor(shell *s, cmd *c)
 		if (value != NULL)
 		{
 			key_value = ft_strsplit(c->cmd_args[i], '=');
-			item 
+			item = ITEM(key_value[0],
+						ft_strlen(key_value[0]) + 1,
+						key_value[1],
+						ft_strlen(key_value[1]) + 1);
+			INSERT(environ, &item);
 			delete_args_array(key_value);
 		}
+		else
+		{
+			
+		}
+		
 	}
 }
