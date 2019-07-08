@@ -64,5 +64,5 @@ int				ft_bintree_remove(t_bintree **p,
 		return (0);
 	}
 	*p = ft_balance(*p);
-	return (1);
+	return (0);
 }

@@ -1,8 +1,8 @@
 #include "ft_printf.h"
 
-static void		insert(t_dictionary *d, t_node *item)
+static void			insert(t_dictionary *d, t_node *item)
 {
-	t_bintree	*exist;
+	t_bintree		*exist;
 
 	exist = NULL;
 	exist = ft_bintree_find(&(d->array), item->key, item->key_size, d->compare);
@@ -19,11 +19,13 @@ static void		insert(t_dictionary *d, t_node *item)
 	}
 }
 
-static void		del_item(t_dictionary *d,
-				const void *key,
-				const size_t key_size)
+static void			del_item(t_dictionary *d,
+					const void *key,
+					const size_t key_size)
 {
-	const int res = ft_bintree_remove(&(d->array),
+	int res = 0;
+	
+	res = ft_bintree_remove(&(d->array),
 								key,
 								key_size,
 								d->compare,
@@ -95,9 +97,9 @@ static void			add_arg_from_dict(t_node *node, void *out)
 	}
 }
 
-static void		**data(t_dictionary *d)
+static void			**data(t_dictionary *d)
 {
-	void		**args;
+	void			**args;
 
 	args = (void **)malloc(sizeof(void *) * (d->size + 1));
 	args[d->size] = NULL;

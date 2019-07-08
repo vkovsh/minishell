@@ -6,7 +6,7 @@ void		delete_args_array(char **arr)
 	char	**trash;
 
 	trash = arr;
-	while (*arr)
+	while (*arr != NULL)
 	{
 		ft_strdel(arr++);
 	}

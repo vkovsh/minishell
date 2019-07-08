@@ -19,11 +19,11 @@ void		unsetenv_processor(shell *s, cmd *c)
 				s->environ->del_item(s->environ,
 								c->cmd_args[counter],
 								ft_strlen(c->cmd_args[counter]) + 1);
-				// ft_printf("'%s=%s' removed\n", c->cmd_args[counter], value);
+				ft_printf("'%s' removed\n", c->cmd_args[counter]);
 			}
 			else
 			{
-				// ft_printf("'%s' key does not set\n", c->cmd_args[counter]);
+				ft_printf("'%s' key does not set\n", c->cmd_args[counter]);
 			}
 			counter++;
 		}
@@ -32,7 +32,7 @@ void		unsetenv_processor(shell *s, cmd *c)
 	}
 	else
 	{
-		ft_printf("Usage: unsetenv ...");
+		ft_printf("Usage: unsetenv ...\n");
 	}
 	c->cmd_status = EXEC_SUCCESS;
 }
