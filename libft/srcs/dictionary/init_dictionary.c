@@ -101,6 +101,10 @@ static void			**data(t_dictionary *d)
 {
 	void			**args;
 
+	if (d->size == 0)
+	{
+		return (NULL);
+	}
 	args = (void **)malloc(sizeof(void *) * (d->size + 1));
 	args[d->size] = NULL;
 	add_arg_from_dict(NULL, NULL);

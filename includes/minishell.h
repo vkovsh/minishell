@@ -155,4 +155,6 @@ void				delete_shellinfo(t_shellinfo *s);
 void				delete_args_array(char **arr);
 void				signal_handler(int sig_num);
 
+char				*exec_bin_path(const char *bin_name,
+						char **path);
 #endif
