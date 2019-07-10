@@ -19,7 +19,7 @@ static t_list		*get_correct_file(t_list **file, int fd)
 	t_list			*tmp;
 
 	tmp = *file;
-	while (tmp)
+	while (tmp != NULL)
 	{
 		if (tmp->content_size == (size_t)fd)
 			return (tmp);
@@ -79,7 +79,7 @@ static int			ft_strjoin_clean(t_list *entry, char *add)
 int					get_next_line(const int fd, char **line)
 {
 	char			buf[BUFF_SIZE + 1];
-	static t_list	*file;
+	static t_list	*file = NULL;
 	int				ret;
 	t_list			*text;
 
@@ -95,7 +95,11 @@ int					get_next_line(const int fd, char **line)
 			break ;
 	}
 	if (ret < BUFF_SIZE && !ft_strlen(text->content))
+	{
+		free(text->content);
+		free(text);
 		return (0);
+	}
 	if (ft_copyuntil(line, text, '\n') == -1)
 		return (-1);
 	return (1);

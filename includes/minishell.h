@@ -18,6 +18,7 @@
 # define ENV_C_M 0x08
 # define MASKS {ENV_I_M, ENV_ZERO_M, ENV_U_M, ENV_C_M}
 # define ENV_FLAGS_LITERALS "i0uC"
+# define SHELL_BUFF_SIZE 128
 
 typedef struct s_list t_list;
 typedef struct s_dictionary t_dictionary;

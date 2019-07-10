@@ -3,8 +3,9 @@
 
 int				main(int ac, char **av, char **ev)
 {
-	char		cmd_str[4096] = {0};
-	ssize_t		count;
+	// char		read_buff[SHELL_BUFF_SIZE + 1] = {0};
+	char		*cmd_str;
+	// size_t		read_count;
 	char		*cmd_str_trimmed;
 	shell		si;
 
@@ -13,11 +14,13 @@ int				main(int ac, char **av, char **ev)
 	cmd_str_trimmed = NULL;
 	init_shellinfo(&si, ev);
 	display_prompt(si.prompt);
-	ft_memset(cmd_str, 0, 128);
-	while ((count = read(STDIN, cmd_str, 4096)))
+	while (si.shell_exit == 0)
 	{
-		cmd_str[count - 1] = '\0';
-		if (*cmd_str)
+		cmd_str = NULL;
+		get_next_line(STDIN, &cmd_str);
+		if (cmd_str == NULL)
+			break ;
+		if (*cmd_str != '\0')
 		{
 			cmd_str_trimmed = ft_strtrim(cmd_str);
 			if (cmd_str_trimmed && *cmd_str_trimmed)
@@ -34,9 +37,8 @@ int				main(int ac, char **av, char **ev)
 			}
 			if (cmd_str_trimmed)
 				ft_strdel(&cmd_str_trimmed);
-			if (si.shell_exit)
-				break ;
 		}
+		ft_strdel(&cmd_str);
 		display_prompt(si.prompt);
 	}
 	delete_shellinfo(&si);
