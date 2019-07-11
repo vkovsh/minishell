@@ -160,7 +160,8 @@ LIBFT_BASE_NAME	=	ft_arealpha.c		\
 					ft_strsub.c			\
 					ft_nbrlen.c			\
 					ft_strlen.c			\
-					ft_memcpy.c
+					ft_memcpy.c			\
+					ft_substrcut.c
 
 LIBFT_BINTREE_NAME	=	ft_bintree_del.c				\
 						ft_bintree_delone.c				\

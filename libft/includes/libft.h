@@ -177,4 +177,6 @@ char *ft_ulltoa(unsigned long long int n);
 char *ft_wstr_to_str(wchar_t *ws);
 
 int ft_nbrlen(int n);
+
+char *ft_substrcut(const char *str, const char *sub);
 #endif

@@ -3,15 +3,14 @@
 
 int				main(int ac, char **av, char **ev)
 {
-	// char		read_buff[SHELL_BUFF_SIZE + 1] = {0};
 	char		*cmd_str;
-	// size_t		read_count;
 	char		*cmd_str_trimmed;
 	shell		si;
 
 	(void)ac;
 	(void)av;
 	cmd_str_trimmed = NULL;
+	// ft_printf("%s\n", ft_substrcut("\"a\"", "\""));
 	init_shellinfo(&si, ev);
 	display_prompt(si.prompt);
 	while (si.shell_exit == 0)

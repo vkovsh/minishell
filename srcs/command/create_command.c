@@ -19,19 +19,58 @@ static void		procede_spec_args(char **split_cmd, shell *s)
 {
 	char		**it;
 	char		*trash;
-	size_t		len;
+	// size_t		len;
 
 	it = split_cmd;
 	while (*++it != NULL)
 	{
-		// char quot = '\"';
+		char quot = '\"';
 		
-		// char *quoted_begin_pos = ft_strchr(*it, quot);
-		// while (quoted_begin_pos != NULL)
-		// {
-		// 	char *quoted_end_pos = ft_strchr(quoted_begin_pos + 1, quot);
-		// 	if (quoted_end_pos)
-		// }
+		char *quoted_begin_pos = ft_strchr(*it, quot);
+		char *addition = NULL;
+		while (quoted_begin_pos != NULL)
+		{
+			char *quoted_end_pos = ft_strchr(quoted_begin_pos + 1, quot);
+			// *quoted_begin_pos = -1;
+			// if (quoted_end_pos != NULL)
+			// {
+			// 	*quoted_end_pos = -1;
+			// }
+			if (quoted_end_pos == NULL)
+			{
+				addition = ft_strdup("\n");
+				char *line = NULL;
+				ft_printf("> ");
+				while (get_next_line(STDIN, &line) == 1)
+				{
+					addition = ft_strjoin_free(addition, line, TRUE, FALSE);
+					addition = ft_strjoin_free(addition, "\n", TRUE, FALSE);
+					char *typed_quot_pos = NULL;
+					if ((typed_quot_pos = ft_strchr(line, quot)) != NULL)
+					{
+						// *typed_quot_pos = -1;
+						break;
+					}
+					ft_printf("> ");
+				}
+				ft_strdel(&line);
+				line = NULL;	
+			}
+			if (quoted_end_pos)
+				quoted_begin_pos = ft_strchr(quoted_end_pos + 1, quot);
+			else
+			{
+				quoted_begin_pos = NULL;
+			}
+			
+		}
+		if (addition != NULL)
+		{
+			*it = ft_strjoin_free(*it, addition, TRUE, TRUE);
+		}
+		trash = *it;
+		*it = ft_substrcut(*it, "\"");
+		ft_strdel(&trash);
 
 		if (**it == '$')
 		{
@@ -46,22 +85,22 @@ static void		procede_spec_args(char **split_cmd, shell *s)
 			*it = ft_strdup(FIND(s->environ, "HOME", 4));
 			ft_strdel(&trash);
 		}
-		else if (**it == '\042' || **it == '\047')
-		{
-			trash = *it;
-			len = ft_strlen(*it);
-			if (len > 1 && **it == (*it)[len - 1])
-			{
-				*it = ft_strnew(len - 1);
-				ft_memmove(*it, trash + 1, len - 2);
-				(*it)[len - 1] = '\0';
-			}
-			else
-			{
-				*it = ft_strdup("");
-			}
-			ft_strdel(&trash);
-		}
+		// else if (**it == '\042' || **it == '\047')
+		// {
+		// 	trash = *it;
+		// 	len = ft_strlen(*it);
+		// 	if (len > 1 && **it == (*it)[len - 1])
+		// 	{
+		// 		*it = ft_strnew(len - 1);
+		// 		ft_memmove(*it, trash + 1, len - 2);
+		// 		(*it)[len - 1] = '\0';
+		// 	}
+		// 	else
+		// 	{
+		// 		*it = ft_strdup("");
+		// 	}
+		// 	ft_strdel(&trash);
+		// }
 	}
 }
 
