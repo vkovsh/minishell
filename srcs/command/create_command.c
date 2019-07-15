@@ -10,8 +10,12 @@ static t_cmd_id	init_cmd_id(const char *cmd)
 
 	tmp = INIT;
 	while (++tmp < CMD_TOTAL)
-		if (!ft_strcmp(cmds[tmp], cmd))
+	{
+		if (ft_strcmp(cmds[tmp], cmd) == 0)
+		{
 			return (tmp);
+		}
+	}
 	return (ARBITRARY_ID);
 }
 
@@ -19,23 +23,16 @@ static void		procede_spec_args(char **split_cmd, shell *s)
 {
 	char		**it;
 	char		*trash;
-	// size_t		len;
-
+	
 	it = split_cmd;
 	while (*++it != NULL)
 	{
 		char quot = '\"';
-		
 		char *quoted_begin_pos = ft_strchr(*it, quot);
 		char *addition = NULL;
 		while (quoted_begin_pos != NULL)
 		{
 			char *quoted_end_pos = ft_strchr(quoted_begin_pos + 1, quot);
-			// *quoted_begin_pos = -1;
-			// if (quoted_end_pos != NULL)
-			// {
-			// 	*quoted_end_pos = -1;
-			// }
 			if (quoted_end_pos == NULL)
 			{
 				addition = ft_strdup("\n");
@@ -48,7 +45,6 @@ static void		procede_spec_args(char **split_cmd, shell *s)
 					char *typed_quot_pos = NULL;
 					if ((typed_quot_pos = ft_strchr(line, quot)) != NULL)
 					{
-						// *typed_quot_pos = -1;
 						break;
 					}
 					ft_printf("> ");
@@ -62,7 +58,6 @@ static void		procede_spec_args(char **split_cmd, shell *s)
 			{
 				quoted_begin_pos = NULL;
 			}
-			
 		}
 		if (addition != NULL)
 		{

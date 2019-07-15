@@ -2,7 +2,19 @@
 #include "stdlib.h"
 #include "ft_printf.h"
 
-static uint8_t set_flag_mask(char f)
+static void		print_node_default(t_node *node, void *out)
+{
+	(void)out;
+	ft_printf("%s=%s\n", node->key, node->value);
+}
+
+static void		print_node_zero(t_node *node, void *out)
+{
+	(void)out;
+	ft_printf("%s=%s;", node->key, node->value);
+}
+
+static uint8_t	set_flag_mask(char f)
 {
 	t_envflags e;
 	const uint8_t masks[ENV_TOTAL] = MASKS;
@@ -56,6 +68,7 @@ void env_processor(shell *s, cmd *c)
 		}
 	}
 	environ_array = NULL;
+	environ = NULL;
 	if ((flags & ENV_I_M) != 0)
 	{
 		const t_del del_struct = (t_del){free, free, del_node};
@@ -118,5 +131,31 @@ void env_processor(shell *s, cmd *c)
 		exec(s, command);
 		s->env_array = buf1;
 		s->environ = dict;
+	}
+	else
+	{
+		// char delim;
+		if (flags == 0 || (flags & ENV_I_M) != 0)
+		{
+			if (environ->array != NULL)
+			{
+				ft_bintree_infix_traverse(&(environ->array), print_node_default, NULL);
+			}
+			// delim = '\n';
+		}
+		else if ((flags & ENV_ZERO_M) != 0)
+		{
+			if (environ->array != NULL)
+			{
+				ft_bintree_infix_traverse(&(environ->array), print_node_zero, NULL);
+			}
+			// delim = ';';
+		}
+		// ft_bintree_infix_traverse(&(environ->array), print_node, &delim);
+	}
+	if (environ != NULL)
+	{
+		CLEAR(environ);
+		free(environ);
 	}
 }

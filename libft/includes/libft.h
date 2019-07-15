@@ -179,4 +179,6 @@ char *ft_wstr_to_str(wchar_t *ws);
 int ft_nbrlen(int n);
 
 char *ft_substrcut(const char *str, const char *sub);
+
+int	ft_substrcount(const char *str, const char *sub);
 #endif

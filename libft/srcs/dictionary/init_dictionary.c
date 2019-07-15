@@ -49,9 +49,12 @@ static void		*find(t_dictionary *d, const void *key, const size_t key_size)
 
 static void		clear(t_dictionary *d)
 {
-	ft_bintree_del(&(d->array), &(d->del_struct));
-	d->array = NULL;
-	d->size = 0;
+	if (d->array != NULL)
+	{
+		ft_bintree_del(&(d->array), &(d->del_struct));
+		d->array = NULL;
+		d->size = 0;
+	}
 }
 
 static void			add_node(t_node *node, void *out)
