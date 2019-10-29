@@ -12,7 +12,8 @@ void			arbitrary_processor(shell *s, cmd *c)
 	exec_path = NULL;
 	c->cmd_status = EXEC_SUCCESS;
 	path = ft_strsplit(FIND(s->environ, "PATH", 4), ':');
-	if ((pid = fork()) == -1)
+	pid = fork();
+	if (pid == -1)
 	{
 		exit(EXEC_FAIL);
 	}
