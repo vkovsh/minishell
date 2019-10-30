@@ -7,7 +7,7 @@ static void	override_envarray(shell *s)
 	s->env_array = (char **)s->environ->data(s->environ);
 }
 
-void		setenv_processor(shell *s, cmd *c)
+t_retcode	setenv_processor(shell *s, cmd *c)
 {
 	char	*name;
 	char	*value;
@@ -27,11 +27,11 @@ void		setenv_processor(shell *s, cmd *c)
 		}
 		INSERT(s->environ, &node);
 		override_envarray(s);
-		c->cmd_status = EXEC_SUCCESS;
+		return (RC_SUCCESS);
 	}
 	else
 	{
 		ft_printf("Usage: setenv <NAME> <VALUE>\n");
-		c->cmd_status = EXEC_FAIL;
+		return (RC_ERR_BAD_PARAMS);
 	}
 }

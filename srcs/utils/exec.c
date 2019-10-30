@@ -1,19 +1,20 @@
 #include "minishell.h"
 #include "ft_printf.h"
 
-int			exec(void *shell, t_list *commands)
+t_retcode		exec(void *shell, t_list *commands)
 {
-	t_cmd	*current;
-	
+	t_cmd		*current;
+	t_retcode	ret;
+
 	while (commands)
 	{
 		current = (t_cmd *)commands->content;
-		current->cmd_processor(shell, current);
-		if (current->cmd_status == EXEC_FAIL)
+		ret = current->cmd_processor(shell, current);
+		if (ret != RC_SUCCESS)
 		{
-			return (0);
+			return (ret);
 		}
 		commands = commands->next;
 	}
-	return (1);
+	return (ret);
 }

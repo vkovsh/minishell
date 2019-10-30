@@ -1,10 +1,9 @@
 #include "minishell.h"
 #include "ft_printf.h"
 
-void	pwd_processor(shell *s, cmd *c)
+t_retcode	pwd_processor(shell *s, cmd *c)
 {
-	(void)s;
 	(void)c;
-	c->cmd_status = EXEC_SUCCESS;
 	ft_printf("%s\n", s->current_proc_path);
+	return (RC_SUCCESS);
 }

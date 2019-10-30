@@ -1,7 +1,7 @@
 #include "minishell.h"
 #include "libft.h"
 
-void		echo_processor(shell *s, cmd *c)
+t_retcode	echo_processor(shell *s, cmd *c)
 {
 	size_t	length;
 	char	**begin;
@@ -17,4 +17,5 @@ void		echo_processor(shell *s, cmd *c)
 	}
 	write(1, "\n", 1);
 	c->cmd_args = begin;
+	return (RC_SUCCESS);
 }

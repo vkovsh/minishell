@@ -37,7 +37,8 @@ UTILS_NAME	=	create_prompt.c		\
 				exec.c				\
 				del.c				\
 				signal.c			\
-				exec_bin_path.c
+				exec_bin_path.c		\
+				command_history.c
 
 CMD_NAME	=	create_command.c	\
 				delete_command.c

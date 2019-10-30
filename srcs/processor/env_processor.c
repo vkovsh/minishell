@@ -36,7 +36,7 @@ static void	del_node(t_node *item, t_del_key del_k, t_del_value del_v)
 	del_v(item->value);
 }
 
-void env_processor(shell *s, cmd *c)
+t_retcode			env_processor(shell *s, cmd *c)
 {
 	uint8_t			flags;
 	uint8_t			flag;
@@ -62,7 +62,7 @@ void env_processor(shell *s, cmd *c)
 			if (flag == 0)
 			{
 				ft_printf("env: invalid option -- '%c'\n", c->cmd_args[i][j - 1]);
-				return ;
+				return (RC_ERR_INVALID_OPTION);
 			}
 			flags |= flag;
 		}
@@ -158,4 +158,5 @@ void env_processor(shell *s, cmd *c)
 		CLEAR(environ);
 		free(environ);
 	}
+	return (RC_SUCCESS);
 }

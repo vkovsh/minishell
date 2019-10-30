@@ -32,7 +32,7 @@ int				main(int ac, char **av, char **ev)
 				break ;
 			else if (*(cmd_str + buff_index) == 0x12)//ctrl+R
 			{
-				ft_printf("search mode:\n");
+				ft_printf("\n(reverse-i-search):\n");
 				break ;
 			}
 			else if (*(cmd_str + buff_index) == 0x04) //ctrl+D

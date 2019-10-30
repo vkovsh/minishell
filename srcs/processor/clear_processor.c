@@ -1,10 +1,12 @@
 #include "minishell.h"
 #include "ft_printf.h"
 
-void	clear_processor(shell *s, cmd *c)
+t_retcode	clear_processor(shell *s, cmd *c)
 {
 	const char clear_code[] = "\e[1;1H\e[2J";
+	
 	(void)s;
-	c->cmd_status = EXEC_SUCCESS;
+	(void)c;
 	ft_printf("%s", clear_code);
+	return (RC_SUCCESS);
 }

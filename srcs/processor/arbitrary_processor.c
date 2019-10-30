@@ -1,21 +1,19 @@
 #include "minishell.h"
 #include "ft_printf.h"
 
-void			arbitrary_processor(shell *s, cmd *c)
+t_retcode		arbitrary_processor(shell *s, cmd *c)
 {
 	char		**path;
 	char		*exec_path;
 	pid_t		pid;
 
-	c->cmd_status = EXEC_SUCCESS;
 	path = NULL;
 	exec_path = NULL;
-	c->cmd_status = EXEC_SUCCESS;
 	path = ft_strsplit(FIND(s->environ, "PATH", 4), ':');
 	pid = fork();
 	if (pid == -1)
 	{
-		exit(EXEC_FAIL);
+		exit(1);
 	}
 	if (pid == 0)
 	{
@@ -23,16 +21,16 @@ void			arbitrary_processor(shell *s, cmd *c)
 		{
 			execve(exec_path, c->cmd_args, s->env_array);
 		}
-		c->cmd_status = EXEC_FAIL;
 		ft_printf("'%s' command is undefined\n", c->cmd_name);
 		exit(0);
 	}
 	else
 	{
 		wait(NULL);
-		if (exec_path && c->cmd_status == EXEC_SUCCESS)
+		if (exec_path)
 			ft_strdel(&exec_path);
 		if (path)
 			delete_args_array(path);
 	}
+	return (RC_SUCCESS);
 }

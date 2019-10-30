@@ -1,7 +1,8 @@
 #include "minishell.h"
 
-void	exit_processor(shell *s, cmd *c)
+t_retcode	exit_processor(shell *s, cmd *c)
 {
-	c->cmd_status = EXEC_SUCCESS;
+	(void)c;
 	s->shell_exit = true;
+	return (RC_SUCCESS);
 }

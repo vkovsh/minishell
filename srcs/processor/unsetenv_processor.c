@@ -1,7 +1,7 @@
 #include "minishell.h"
 #include "ft_printf.h"
 
-void		unsetenv_processor(shell *s, cmd *c)
+t_retcode	unsetenv_processor(shell *s, cmd *c)
 {
 	size_t	counter;
 	void	*value;
@@ -34,5 +34,5 @@ void		unsetenv_processor(shell *s, cmd *c)
 	{
 		ft_printf("Usage: unsetenv ...\n");
 	}
-	c->cmd_status = EXEC_SUCCESS;
+	return (RC_SUCCESS);
 }

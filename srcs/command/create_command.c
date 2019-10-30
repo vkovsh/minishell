@@ -119,7 +119,6 @@ t_cmd			create_command(const char *cmd_txt, shell *s)
 	cmd_id = init_cmd_id(split_cmd[0]);
 	new_cmd.cmd_id = cmd_id;
 	new_cmd.cmd_name = ft_strdup(split_cmd[0]);
-	new_cmd.cmd_status = EXEC_READY;
 	new_cmd.cmd_args = split_cmd;
 	new_cmd.cmd_processor = s->processors[new_cmd.cmd_id];
 	return (new_cmd);

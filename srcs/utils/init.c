@@ -50,6 +50,8 @@ void		init_shellinfo(t_shellinfo *si, char **env)
 	si->environ = NULL;
 	init_dictionary(&si->environ, ft_memcmp, &del_struct);
 	set_environ(si->environ, env);
+	init_dictionary(&si->history, ft_memcmp, &del_struct);
+	load_history(si);
 	si->env_array = (char **)si->environ->data(si->environ);
 	si->shell_exit = false;
 	si->current_proc_path = ft_strdup(working_dir);
