@@ -82,6 +82,7 @@ typedef enum		e_cmd_id
 typedef struct		s_cmd
 {
 	t_cmd_id		cmd_id;
+	char			*cmd_txt;
 	char			*cmd_name;
 	char			**cmd_args;
 	size_t			cmd_args_count;
@@ -149,6 +150,7 @@ void				delete_args_array(char **arr);
 void				signal_handler(int sig_num);
 
 t_retcode           load_history(shell *s);
+t_retcode           add_to_history(t_cmd *cmd, shell *s);
 
 char				*exec_bin_path(const char *bin_name,
 						char **path);

@@ -32,7 +32,7 @@ int				main(int ac, char **av, char **ev)
 				break ;
 			else if (*(cmd_str + buff_index) == 0x12)//ctrl+R
 			{
-				ft_printf("\n(reverse-i-search):\n");
+				ft_printf("\n(reverse-i-search): ");
 				break ;
 			}
 			else if (*(cmd_str + buff_index) == 0x04) //ctrl+D
@@ -59,7 +59,9 @@ int				main(int ac, char **av, char **ev)
 					si.cmd_history = si.cmd_current;
 				}
 				else
+				{
 					ft_lstaddsub(&si.cmd_history, si.cmd_current);
+				}
 			}
 			if (cmd_str_trimmed)
 				ft_strdel(&cmd_str_trimmed);

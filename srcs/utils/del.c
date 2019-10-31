@@ -45,6 +45,8 @@ void	delete_shellinfo(t_shellinfo *s)
 	delete_string(s->prompt);
 	delete_args_array(s->env_array);
 	ft_lstdel(&(s->cmd_history), del_cmd_entry);
+	CLEAR(s->history);
 	CLEAR(s->environ);
 	free(s->environ);
+	close(s->history_handler);
 }

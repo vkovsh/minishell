@@ -108,6 +108,7 @@ t_cmd			create_command(const char *cmd_txt, shell *s)
 
 	ft_memset(&new_cmd, 0, sizeof(new_cmd));
 	new_cmd.cmd_args_count = 1;
+	new_cmd.cmd_txt = ft_strdup(cmd_txt);
 	space_delim_p = (char *)cmd_txt;
 	while ((space_delim_p = ft_strchr(space_delim_p, ' ')) != NULL)
 	{

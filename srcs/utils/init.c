@@ -5,11 +5,13 @@ t_shellinfo	*g_si = NULL;
 
 static void	handle_signal(int sig) 
 {
-	ft_printf("Caught signal %d\n", sig);
+	// ft_printf("Caught signal %d\n", sig);
 	if (sig == SIGINT)
-	{ 
-		delete_shellinfo(g_si);
-		exit(0);
+	{
+		ft_printf("Caught signal %d\n", sig);
+		display_prompt(g_si->prompt);
+		//delete_shellinfo(g_si);
+		//exit(0);
 	}
 }
 

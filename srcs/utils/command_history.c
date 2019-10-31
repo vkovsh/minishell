@@ -18,6 +18,7 @@ static t_retcode    open_history_file(shell *s)
     s->history_handler = open(filename,
                         O_RDWR | O_APPEND | O_CREAT,
                         S_IRUSR | S_IWUSR);
+    ft_printf("%d\n", s->history_handler);
     if (s->history_handler == -1)
     {
         return (RC_ERR_HISTORY_ACCESS);
@@ -48,8 +49,14 @@ t_retcode           load_history(shell *s)
     return (RC_SUCCESS);
 }
 
-t_retcode           add_to_history(t_cmd *cmd, t_dictionary *history)
+t_retcode           add_to_history(t_cmd *cmd, shell *s)
 {
+    t_node          node;
+    const size_t    cmd_len = ft_strlen(cmd->cmd_txt);
+
+    node = ITEM(cmd->cmd_txt, cmd_len + 1, "", 1);
+    INSERT(s->history, &node);
+    ft_dprintf(s->history_handler, "%s\n", cmd->cmd_txt);
     return (RC_SUCCESS);
 }
 
