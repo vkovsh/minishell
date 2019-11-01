@@ -23,18 +23,18 @@ t_bintree		*ft_bintree_find(t_bintree **t,
 	find = *t;
 	while (find != NULL)
 	{
-		i = compare(key, find->node.key, key_size);
+		i = compare(find->node.key, key, key_size);
 		if (i == 0)
 		{
 			return (find);
 		}
 		else if (i < 0)
 		{
-			find = find->left;
+			find = find->right;
 		}
 		else
 		{
-			find = find->right;
+			find = find->left;
 		}
 	}
 	return (NULL);

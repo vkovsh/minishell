@@ -5,11 +5,14 @@ static void			insert(t_dictionary *d, t_node *item)
 	t_bintree		*exist;
 
 	exist = NULL;
-	exist = ft_bintree_find(&(d->array), item->key, item->key_size, d->compare);
+	exist = ft_bintree_find(&(d->array),
+				item->key,
+				item->key_size, d->compare_init);
 	if (exist == NULL)
 	{
 		d->size++;
-		ft_bintree_add(&(d->array), ft_bintree_new(item), d->compare);
+		ft_bintree_add(&(d->array),
+				ft_bintree_new(item), d->compare_init);
 	}
 	else
 	{
@@ -28,7 +31,7 @@ static void			del_item(t_dictionary *d,
 	res = ft_bintree_remove(&(d->array),
 								key,
 								key_size,
-								d->compare,
+								d->compare_init,
 								&(d->del_struct));
 	if (res == 0)
 	{
@@ -43,7 +46,7 @@ static void		*find(t_dictionary *d, const void *key, const size_t key_size)
 	node = ft_bintree_find(&(d->array),
 			key,
 			key_size,
-			d->compare);
+			d->compare_find);
 	return (node ? node->node.value : NULL);
 }
 
@@ -74,7 +77,8 @@ static t_dictionary	*clone(t_dictionary *d)
 	new_d->array = NULL;
 	new_d->clear = d->clear;
 	new_d->clone = d->clone;
-	new_d->compare = d->compare;
+	new_d->compare_init = d->compare_init;
+	new_d->compare_find = d->compare_find;
 	new_d->data = d->data;
 	new_d->del_item = d->del_item;
 	new_d->del_struct = d->del_struct;
@@ -116,13 +120,15 @@ static void			**data(t_dictionary *d)
 }
 
 void			init_dictionary(t_dictionary **d,
-					t_compare_keys cmp_f,
-					const t_del *del_struct)
+						t_compare_keys cmp_f_init,
+						t_compare_keys cmp_f_find,
+						const t_del *del_struct)
 {
 	*d = (t_dictionary *)malloc(sizeof(t_dictionary));
 	(*d)->array = NULL;
 	(*d)->size = 0;
-	(*d)->compare = cmp_f;
+	(*d)->compare_init = cmp_f_init;
+	(*d)->compare_find = cmp_f_find;
 	(*d)->find = find;
 	(*d)->insert = insert;
 	(*d)->del_item = del_item;

@@ -33,13 +33,29 @@ int				main(int ac, char **av, char **ev)
 			else if (*(cmd_str + buff_index) == 0x12)//ctrl+R
 			{
 				ft_printf("\n(reverse-i-search): ");
+				// char to_find_txt[1024];
+				// size_t to_find_index = 0;
+				while (read(0, cmd_str + buff_index, 1) > 0)
+				{
+					if (*(cmd_str + buff_index) == '\n' || buff_index == buff_size)
+						break ;
+					else if (*(cmd_str + buff_index) == 0x04) //ctrl+D
+					{
+						ft_printf("EOF\n");
+						exit(0);
+					}
+					cmd_str[buff_index + 1] = '\0';
+					ft_printf("[%s]\n", cmd_str);
+					char *found_cmd = FIND(si.history, cmd_str, buff_index);
+					ft_printf("[[%s]]\n", found_cmd);
+					buff_index++;
+				}
 				break ;
 			}
 			else if (*(cmd_str + buff_index) == 0x04) //ctrl+D
 			{
 				ft_printf("EOF\n");
 				exit(0);
-				break ;
 			}
 			buff_index++;	
 		}

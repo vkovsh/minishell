@@ -24,7 +24,8 @@ typedef struct		s_dictionary
 	t_insert		insert;
 	t_del_item		del_item;
 	t_find			find;
-	t_compare_keys	compare;
+	t_compare_keys	compare_init;
+	t_compare_keys	compare_find;
 	t_clear			clear;
 	t_del			del_struct;
 	t_data			data;
@@ -32,6 +33,7 @@ typedef struct		s_dictionary
 }					t_dictionary;
 
 void				init_dictionary(t_dictionary **d,
-						t_compare_keys cmp_f,
+						t_compare_keys cmp_f_init,
+						t_compare_keys cmp_f_find,
 						const t_del *del_struct);
 #endif

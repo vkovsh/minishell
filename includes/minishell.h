@@ -10,14 +10,11 @@
 # include "retcode.h"
 # define NAME_MAX 255
 # define PATH_MAX 4096
-# define STDIN 0
-# define STDOUT 1
-# define STDERR 2
 # define ENV_I_M 0x01
 # define ENV_ZERO_M 0x02
 # define ENV_U_M 0x04
 # define ENV_C_M 0x08
-# define MASKS {ENV_I_M, ENV_ZERO_M, ENV_U_M, ENV_C_M}
+// # define MASKS {ENV_I_M, ENV_ZERO_M, ENV_U_M, ENV_C_M}
 # define ENV_FLAGS_LITERALS "i0uC"
 # define SHELL_BUFF_SIZE 128
 

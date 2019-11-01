@@ -17,7 +17,7 @@ static void		print_node_zero(t_node *node, void *out)
 static uint8_t	set_flag_mask(char f)
 {
 	t_envflags e;
-	const uint8_t masks[ENV_TOTAL] = MASKS;
+	const uint8_t masks[ENV_TOTAL] = {ENV_I_M, ENV_ZERO_M, ENV_U_M, ENV_C_M};
 
 	e = ENV_UNDEFINED;
 	while (++e < ENV_TOTAL)
@@ -72,7 +72,7 @@ t_retcode			env_processor(shell *s, cmd *c)
 	if ((flags & ENV_I_M) != 0)
 	{
 		const t_del del_struct = (t_del){free, free, del_node};
-		init_dictionary(&environ, ft_memcmp, &del_struct);
+		init_dictionary(&environ, ft_memcmp, ft_memcmp, &del_struct);
 	}
 	else
 	{

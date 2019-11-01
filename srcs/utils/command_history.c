@@ -41,7 +41,7 @@ t_retcode           load_history(shell *s)
     }
     while (get_next_line(s->history_handler, &line) != 0)
     {
-        node = ITEM(line, ft_strlen(line) + 1, "", 1);
+        node = ITEM(line, ft_strlen(line) + 1, line, ft_strlen(line) + 1);
         INSERT(s->history, &node);
         ft_strdel(&line);
         line = NULL;    
@@ -54,7 +54,7 @@ t_retcode           add_to_history(t_cmd *cmd, shell *s)
     t_node          node;
     const size_t    cmd_len = ft_strlen(cmd->cmd_txt);
 
-    node = ITEM(cmd->cmd_txt, cmd_len + 1, "", 1);
+    node = ITEM(cmd->cmd_txt, cmd_len + 1, cmd->cmd_txt, cmd_len + 1);
     INSERT(s->history, &node);
     ft_dprintf(s->history_handler, "%s\n", cmd->cmd_txt);
     return (RC_SUCCESS);

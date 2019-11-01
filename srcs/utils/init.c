@@ -13,6 +13,14 @@ static void	handle_signal(int sig)
 		//delete_shellinfo(g_si);
 		//exit(0);
 	}
+	else if (sig == SIGQUIT)
+	{
+		ft_printf("Sayonara\n");
+	}
+	else if (sig == SIGCHLD)
+	{
+		ft_printf("child died\n");
+	}
 }
 
 static void	set_environ(t_dictionary *d, char **e)
@@ -50,9 +58,9 @@ void		init_shellinfo(t_shellinfo *si, char **env)
 	signal(SIGINT, handle_signal);
 	getcwd(working_dir, 256);
 	si->environ = NULL;
-	init_dictionary(&si->environ, ft_memcmp, &del_struct);
+	init_dictionary(&si->environ, ft_memcmp, ft_memcmp, &del_struct);
 	set_environ(si->environ, env);
-	init_dictionary(&si->history, ft_memcmp, &del_struct);
+	init_dictionary(&si->history, ft_memcmp, (t_compare_keys)ft_strncmp, &del_struct);
 	load_history(si);
 	si->env_array = (char **)si->environ->data(si->environ);
 	si->shell_exit = false;

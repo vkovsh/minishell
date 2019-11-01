@@ -61,6 +61,8 @@ char *ft_strrchr(const char *s, int c);
 
 char *ft_strstr(const char *haystack, const char *needle);
 
+int	ft_isstrin(const char *haystack, const char *needle);
+
 char *ft_strnstr(const char *haystack, const char *needle,
 				 size_t len);
 

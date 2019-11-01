@@ -38,7 +38,7 @@ static void		procede_spec_args(char **split_cmd, shell *s)
 				addition = ft_strdup("\n");
 				char *line = NULL;
 				ft_printf("> ");
-				while (get_next_line(STDIN, &line) == 1)
+				while (get_next_line(0, &line) == 1)
 				{
 					addition = ft_strjoin_free(addition, line, TRUE, FALSE);
 					addition = ft_strjoin_free(addition, "\n", TRUE, FALSE);
