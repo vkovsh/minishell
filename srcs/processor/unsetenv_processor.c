@@ -1,5 +1,8 @@
 #include "minishell.h"
 #include "ft_printf.h"
+#include "retcode.h"
+#include "shellinfo.h"
+#include "dictionary.h"
 
 t_retcode	unsetenv_processor(shell *s, cmd *c)
 {

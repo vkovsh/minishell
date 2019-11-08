@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "bintree.h"
 
 void				ft_fixheight(t_bintree *t)
 {

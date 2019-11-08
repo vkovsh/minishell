@@ -1,5 +1,9 @@
 #include "minishell.h"
 #include "ft_printf.h"
+#include "retcode.h"
+#include <signal.h>
+#include "shellinfo.h"
+#include "dictionary.h"
 
 t_shellinfo	*g_si = NULL;
 
@@ -20,6 +24,11 @@ static void	handle_signal(int sig)
 	else if (sig == SIGCHLD)
 	{
 		ft_printf("child died\n");
+	}
+	else if (sig == SIGTSTP)
+	{
+		ft_printf("Caught signal %d\n", sig);
+		display_prompt(g_si->prompt);
 	}
 }
 
@@ -55,7 +64,8 @@ void		init_shellinfo(t_shellinfo *si, char **env)
 	const t_del del_struct = (t_del){free, free, del_node};
 
 	g_si = si;
-	signal(SIGINT, handle_signal);
+	signal(SIGINT, &handle_signal);
+	signal(SIGTSTP, &handle_signal);
 	getcwd(working_dir, 256);
 	si->environ = NULL;
 	init_dictionary(&si->environ, ft_memcmp, ft_memcmp, &del_struct);
@@ -63,7 +73,7 @@ void		init_shellinfo(t_shellinfo *si, char **env)
 	init_dictionary(&si->history, ft_memcmp, (t_compare_keys)ft_strncmp, &del_struct);
 	load_history(si);
 	si->env_array = (char **)si->environ->data(si->environ);
-	si->shell_exit = false;
+	si->shell_exit = 0;
 	si->current_proc_path = ft_strdup(working_dir);
 	si->init_proc_path = ft_strdup(working_dir);
 	si->bin_path = ft_strjoin(working_dir, "/bin/");

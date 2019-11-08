@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "bintree.h"
 #include "libft.h"
-#include <unistd.h>
 
 t_bintree		*ft_bintree_new(const t_node *item)
 {

@@ -1,5 +1,7 @@
 #include "minishell.h"
 #include "ft_printf.h"
+#include "retcode.h"
+#include "shellinfo.h"
 
 t_retcode		exec(void *shell, t_list *commands)
 {

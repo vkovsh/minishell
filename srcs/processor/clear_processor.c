@@ -1,5 +1,6 @@
 #include "minishell.h"
 #include "ft_printf.h"
+#include "retcode.h"
 
 t_retcode	clear_processor(shell *s, cmd *c)
 {

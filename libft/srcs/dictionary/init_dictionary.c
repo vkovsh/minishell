@@ -1,3 +1,4 @@
+#include "dictionary.h"
 #include "ft_printf.h"
 
 static void			insert(t_dictionary *d, t_node *item)

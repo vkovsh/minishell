@@ -1,5 +1,8 @@
 #include "minishell.h"
 #include "ft_printf.h"
+#include "retcode.h"
+#include "shellinfo.h"
+#include "dictionary.h"
 
 static void	override_envarray(shell *s)
 {

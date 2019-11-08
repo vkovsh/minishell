@@ -1,6 +1,9 @@
 #include "minishell.h"
 #include "ft_printf.h"
 #include <fcntl.h>
+#include "retcode.h"
+#include "shellinfo.h"
+#include "dictionary.h"
 
 static t_retcode    open_history_file(shell *s)
 {
@@ -16,8 +19,7 @@ static t_retcode    open_history_file(shell *s)
     filename = ft_strjoin(home_dir, "/.42sh_history");
     ft_printf("%s\n", filename);
     s->history_handler = open(filename,
-                        O_RDWR | O_APPEND | O_CREAT,
-                        S_IRUSR | S_IWUSR);
+                        O_RDWR | O_APPEND | O_CREAT, S_IRUSR | S_IWUSR);
     ft_printf("%d\n", s->history_handler);
     if (s->history_handler == -1)
     {

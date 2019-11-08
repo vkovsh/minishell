@@ -12,7 +12,23 @@ typedef enum	e_retcode
     RC_ERR_BAD_PARAMS = 6,
     RC_ERR_HOME_UNSET = 7,
     RC_ERR_HISTORY_ACCESS = 8,
-	RC_ERR_TOTAL = 9
+    RC_ERR_BAD_TERM_GET = 9,
+    RC_ERR_BAD_TERM_SET = 10,
+    RC_ERR_BAD_EXIT_REGISTER = 11,
+    RC_ERR_TERM_NOT_SET = 12,
+    RC_ERR_TERMINFO_DB_ACCESS = 13,
+    RC_ERR_TERMTYPE_UNDEFINED = 14,
+    RC_ERR_TERM_NO_CL = 15,
+    RC_ERR_TERM_NO_CM = 16,
+    RC_ERR_TERM_NO_SO = 17,
+    RC_ERR_TERM_NO_SE = 18,
+    RC_ERR_BAD_TGOTO = 19,
+    RC_ERR_BAD_TPUTS = 20,
+    RC_ERR_TERM_NO_KU = 21,
+    RC_ERR_TERM_NO_KD = 22,
+    RC_ERR_TERM_NO_KL = 23,
+    RC_ERR_TERM_NO_KR = 24,
+	RC_ERR_TOTAL = 25,
 }               t_retcode;
 
 #endif

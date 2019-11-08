@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "bintree.h"
 
 t_bintree		*findmin(t_bintree *p)
 {

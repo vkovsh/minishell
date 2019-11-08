@@ -1,4 +1,5 @@
 #include "libft.h"
+#include <stdlib.h>
 
 t_string	*create_string(const char *str,
 							size_t size)

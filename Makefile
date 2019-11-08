@@ -10,10 +10,11 @@ MAKE_LIBFT	=	make -C $(LIBFT_PATH)
 INC_PATH	=	./includes/ $(LIBFT_PATH)includes/ ./obj/ $(LIBFT_PATH)obj/
 OBJ_PATH	=	./obj/
 SRC_PATH	=	./srcs/
-LEXER_PATH	=	$(SRC_PATH)/lexer/
-PROC_PATH	=	$(SRC_PATH)/processor/
-CMD_PATH	=	$(SRC_PATH)/command/
-UTILS_PATH	=	$(SRC_PATH)/utils/
+LEXER_PATH	=	$(SRC_PATH)lexer/
+PROC_PATH	=	$(SRC_PATH)processor/
+CMD_PATH	=	$(SRC_PATH)command/
+UTILS_PATH	=	$(SRC_PATH)utils/
+TERM_PATH	=	$(SRC_PATH)term/
 LIBFT_PATH	=	./libft/
 
 OBJ			=	$(addprefix $(OBJ_PATH),$(OBJ_NAME))
@@ -28,6 +29,7 @@ OBJ_NAME	+=	$(LEXER_NAME:.c=.o)
 OBJ_NAME	+=	$(PROC_NAME:.c=.o)
 OBJ_NAME	+=	$(CMD_NAME:.c=.o)
 OBJ_NAME	+=	$(UTILS_NAME:.c=.o)
+OBJ_NAME	+=	$(TERM_NAME:.c=.o)
 
 SRC_NAME	=	main.c
 
@@ -55,7 +57,15 @@ PROC_NAME	=	clear_processor.c		\
 				unsetenv_processor.c	\
 				arbitrary_processor.c
 
+TERM_NAME	=	term_settings.c	\
+				term_init.c	\
+				term_goto.c
+
 HEADERS		=	minishell.h
+
+LIBFT		=	$(LIBFT_PATH)libft.a
+
+TERMCAP		=	-ltermcap
 
 all: $(TARGET_NAME)
 
@@ -63,7 +73,7 @@ create_lib:
 	$(MAKE_LIBFT)
 
 $(TARGET_NAME): create_lib $(GCH) $(OBJ)
-	@$(CC) -o $(TARGET_NAME) $(OBJ) $(LIBFT_PATH)libft.a
+	@$(CC) -o $(TARGET_NAME) $(OBJ) $(LIBFT) $(TERMCAP)
 	@echo "Linking" [ $(TARGET_NAME) ]
 
 $(OBJ_PATH)%.h.gch: ./includes/%.h
@@ -72,6 +82,11 @@ $(OBJ_PATH)%.h.gch: ./includes/%.h
 	@echo "Compiling" [ $< ]
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
+	@mkdir -p $(OBJ_PATH)
+	@$(CC) $(CC_FLAGS) -o $@ -c $< $(INC)
+	@echo "Compiling" [ $< ]
+
+$(OBJ_PATH)%.o: $(TERM_PATH)%.c
 	@mkdir -p $(OBJ_PATH)
 	@$(CC) $(CC_FLAGS) -o $@ -c $< $(INC)
 	@echo "Compiling" [ $< ]

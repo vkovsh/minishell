@@ -1,5 +1,6 @@
 #include "minishell.h"
 #include "libft.h"
+#include "shellinfo.h"
 
 char			**trim_cmds(char **split_cmds)
 {

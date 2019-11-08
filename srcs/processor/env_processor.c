@@ -1,6 +1,10 @@
 #include "minishell.h"
 #include "stdlib.h"
 #include "ft_printf.h"
+#include "retcode.h"
+#include "env.h"
+#include "shellinfo.h"
+#include "dictionary.h"
 
 static void		print_node_default(t_node *node, void *out)
 {
@@ -18,11 +22,12 @@ static uint8_t	set_flag_mask(char f)
 {
 	t_envflags e;
 	const uint8_t masks[ENV_TOTAL] = {ENV_I_M, ENV_ZERO_M, ENV_U_M, ENV_C_M};
+	const uint8_t env_flags_literals[ENV_TOTAL] = "i0uC";
 
 	e = ENV_UNDEFINED;
 	while (++e < ENV_TOTAL)
 	{
-		if (f == ENV_FLAGS_LITERALS[e])
+		if (f == env_flags_literals[e])
 		{
 			return (masks[e]);
 		}

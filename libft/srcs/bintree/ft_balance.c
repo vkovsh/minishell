@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "bintree.h"
 
 t_bintree		*ft_balance(t_bintree *p)
 {

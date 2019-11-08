@@ -4,41 +4,67 @@
 #include <stdio.h>
 #include <sys/ioctl.h>
 #include <linux/kd.h>
+#include <unistd.h>
+#include "retcode.h"
+#include "dictionary.h"
+#include "shellinfo.h"
 
 int				main(int ac, char **av, char **ev)
 {
-	static struct termios t_old, t_new;
+	init_terminal_data();
+	int x = 10;
+	int y = 2;
+	//while (x && y)
+	//{
+		term_goto(x, y);
+		// usleep(1000);
+	//	x--;
+		// y--;
+	//}
 	char		*cmd_str_trimmed;
 	shell		si;
 	const size_t	buff_size = 1024;
 	char		cmd_str[buff_size + 1];
 	
-	ioctl(0, KDSKBMODE, K_MEDIUMRAW);
-	tcgetattr(0, &t_old);
-	t_new = t_old;
-	t_new.c_lflag &= ~ICANON;
+	// ioctl(0, KDSKBMODE, K_MEDIUMRAW);
+	// tcgetattr(0, &t_old);
+	// t_new = t_old;
+	// t_new.c_lflag &= ~ICANON;ioctl(0, KDSKBMODE, K_MEDIUMRAW);
 	(void)ac;
 	(void)av;
 	cmd_str_trimmed = NULL;
+	get_init_mode();
+	set_raw_mode();
 	init_shellinfo(&si, ev);
+	// enable_raw_mode();
 	display_prompt(si.prompt);
 	while (si.shell_exit == 0)
 	{
-		tcsetattr(0, TCSANOW, &t_new);
+		// tcsetattr(0, TCSANOW, &t_new);
+		enable_raw_mode();
 		size_t buff_index = 0;
-		while (read(0, cmd_str + buff_index, 1) > 0)
+		while (read(STDIN_FILENO, cmd_str + buff_index, 1) > 0)
 		{
-			if (*(cmd_str + buff_index) == '\n' || buff_index == buff_size)
+			// ioctl(0, KDSKBMODE, K_MEDIUMRAW);
+			// ft_printf("[%d]'\n", *(cmd_str + buff_index));
+			
+			if (*(cmd_str + buff_index) == '\n' ||
+				*(cmd_str + buff_index) == '\r' ||
+				buff_index == buff_size)
+			{
+				write(1, "\n", 1);
+				// ft_printf("Enter\n");
 				break ;
+			}
 			else if (*(cmd_str + buff_index) == 0x12)//ctrl+R
 			{
 				ft_printf("\n(reverse-i-search): ");
-				// char to_find_txt[1024];
-				// size_t to_find_index = 0;
 				while (read(0, cmd_str + buff_index, 1) > 0)
 				{
 					if (*(cmd_str + buff_index) == '\n' || buff_index == buff_size)
+					{
 						break ;
+					}
 					else if (*(cmd_str + buff_index) == 0x04) //ctrl+D
 					{
 						ft_printf("EOF\n");
@@ -57,10 +83,21 @@ int				main(int ac, char **av, char **ev)
 				ft_printf("EOF\n");
 				exit(0);
 			}
+			else if (*(cmd_str + buff_index) == 127) //backspace
+			{
+				term_goto(5, 0);
+				// printf(g_key_down_str);
+			}
+			// ft_printf("keycode = %d\n", *(cmd_str + buff_index));
+			if (1 == ft_isprint(*(cmd_str + buff_index)))
+			{
+				write(STDOUT_FILENO, cmd_str + buff_index, 1);
+			}
 			buff_index++;	
 		}
-		tcsetattr(0, TCSANOW, &t_old);
-		ioctl(0, KDSKBMODE, K_XLATE);
+		disable_raw_mode();
+		// tcsetattr(0, TCSANOW, &t_old);
+		// ioctl(0, KDSKBMODE, K_XLATE);
 		cmd_str[buff_index] = '\0';
 		if (*cmd_str != '\0')
 		{
@@ -85,7 +122,6 @@ int				main(int ac, char **av, char **ev)
 		display_prompt(si.prompt);
 	}
 	delete_shellinfo(&si);
-	tcsetattr(0, TCSANOW, &t_old);
-	ioctl(0, KDSKBMODE, K_XLATE);
+	disable_raw_mode();
 	return (0);
 }

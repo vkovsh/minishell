@@ -1,5 +1,8 @@
 #include "minishell.h"
 #include "libft.h"
+#include "retcode.h"
+#include <unistd.h>
+#include "shellinfo.h"
 
 t_retcode	echo_processor(shell *s, cmd *c)
 {

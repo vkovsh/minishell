@@ -1,5 +1,8 @@
 #include "minishell.h"
 #include "ft_printf.h"
+#include "retcode.h"
+#include "shellinfo.h"
+#include "dictionary.h"
 
 static t_retcode	change_exec_dir(shell *s, const char *cd_path)
 {

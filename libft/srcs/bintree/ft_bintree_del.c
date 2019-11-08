@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "bintree.h"
 
 void	ft_bintree_del(t_bintree **t,
 		t_del *del_struct)

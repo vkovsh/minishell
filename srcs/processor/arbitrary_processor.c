@@ -1,5 +1,9 @@
 #include "minishell.h"
 #include "ft_printf.h"
+#include "retcode.h"
+#include <sys/wait.h>
+#include "shellinfo.h"
+#include "dictionary.h"
 
 t_retcode		arbitrary_processor(shell *s, cmd *c)
 {

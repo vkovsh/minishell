@@ -1,5 +1,7 @@
 #include "minishell.h"
 #include "ft_printf.h"
+#include "shellinfo.h"
+#include "dictionary.h"
 
 static t_cmd_id	init_cmd_id(const char *cmd)
 {

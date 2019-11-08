@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "bintree.h"
 
 void	ft_bintree_add(t_bintree **t,
 		t_bintree *entry,

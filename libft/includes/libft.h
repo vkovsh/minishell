@@ -12,20 +12,23 @@
 
 #ifndef LIBFT_H
 # define LIBFT_H
-# include "bintree.h"
-# include "dictionary.h"
+// # include "bintree.h"
+// # include "dictionary.h"
 # include "s_string.h"
 # include <string.h>
 # include <limits.h>
 # include <wchar.h>
 # define BUFF_SIZE 32
 
-typedef struct s_list
+typedef struct s_del t_del;
+typedef struct s_bintree t_bintree;
+typedef struct s_list t_list;
+typedef struct	s_list
 {
-	void *content;
-	size_t content_size;
-	struct s_list *next;
-} t_list;
+	void		*content;
+	size_t		content_size;
+	t_list		*next;
+}				t_list;
 
 void *ft_memset(void *b, int c, size_t len);
 

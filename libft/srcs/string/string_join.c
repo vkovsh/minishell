@@ -1,4 +1,5 @@
 #include "libft.h"
+#include <stdlib.h>
 
 t_string		*string_join(const t_string *string1,
 				const t_string *string2)

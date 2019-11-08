@@ -1,5 +1,7 @@
 #include "minishell.h"
 #include "ft_printf.h"
+#include "shellinfo.h"
+#include "dictionary.h"
 
 void		delete_args_array(char **arr)
 {

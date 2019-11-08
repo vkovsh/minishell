@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "bintree.h"
 
 void	ft_bintree_prefix_traverse(t_bintree **t,
 		t_node_action action,
