@@ -11,43 +11,25 @@
 
 int				main(int ac, char **av, char **ev)
 {
-	init_terminal_data();
-	int x = 10;
-	int y = 2;
-	//while (x && y)
-	//{
-		term_goto(x, y);
-		// usleep(1000);
-	//	x--;
-		// y--;
-	//}
 	char		*cmd_str_trimmed;
 	shell		si;
 	const size_t	buff_size = 1024;
 	char		cmd_str[buff_size + 1];
 	
-	// ioctl(0, KDSKBMODE, K_MEDIUMRAW);
-	// tcgetattr(0, &t_old);
-	// t_new = t_old;
-	// t_new.c_lflag &= ~ICANON;ioctl(0, KDSKBMODE, K_MEDIUMRAW);
 	(void)ac;
 	(void)av;
 	cmd_str_trimmed = NULL;
+	init_terminal_data();
 	get_init_mode();
 	set_raw_mode();
 	init_shellinfo(&si, ev);
-	// enable_raw_mode();
 	display_prompt(si.prompt);
 	while (si.shell_exit == 0)
 	{
-		// tcsetattr(0, TCSANOW, &t_new);
 		enable_raw_mode();
 		size_t buff_index = 0;
 		while (read(STDIN_FILENO, cmd_str + buff_index, 1) > 0)
 		{
-			// ioctl(0, KDSKBMODE, K_MEDIUMRAW);
-			// ft_printf("[%d]'\n", *(cmd_str + buff_index));
-			
 			if (*(cmd_str + buff_index) == '\n' ||
 				*(cmd_str + buff_index) == '\r' ||
 				buff_index == buff_size)
@@ -88,7 +70,7 @@ int				main(int ac, char **av, char **ev)
 				term_goto(5, 0);
 				// printf(g_key_down_str);
 			}
-			// ft_printf("keycode = %d\n", *(cmd_str + buff_index));
+			ft_printf("keycode = %d\n", *(cmd_str + buff_index));
 			if (1 == ft_isprint(*(cmd_str + buff_index)))
 			{
 				write(STDOUT_FILENO, cmd_str + buff_index, 1);

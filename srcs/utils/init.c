@@ -42,10 +42,10 @@ static void	set_environ(t_dictionary *d, char **e)
 	while (*e)
 	{
 		p = ft_strsplit(*e++, '=');
-		node = ITEM(*p,
-					ft_strlen(*p) + 1,
-					p[1],
-					ft_strlen(p[1]) + 1);
+		node = ITEM(p[0],
+					ft_strlen(p[0]) + 1,
+					p[1] ? p[1] : "",
+					ft_strlen(p[1] ? p[1] : "") + 1);
 		INSERT(d, &node);
 		delete_args_array(p);
 	}
@@ -67,11 +67,16 @@ void		init_shellinfo(t_shellinfo *si, char **env)
 	signal(SIGINT, &handle_signal);
 	signal(SIGTSTP, &handle_signal);
 	getcwd(working_dir, 256);
+	ft_printf("%s\n", working_dir);
 	si->environ = NULL;
 	init_dictionary(&si->environ, ft_memcmp, ft_memcmp, &del_struct);
+	ft_printf("<<1>>\n");
 	set_environ(si->environ, env);
+	ft_printf("<<2>>\n");
 	init_dictionary(&si->history, ft_memcmp, (t_compare_keys)ft_strncmp, &del_struct);
+	ft_printf("<<3>>\n");
 	load_history(si);
+	ft_printf("<<4>>\n");
 	si->env_array = (char **)si->environ->data(si->environ);
 	si->shell_exit = 0;
 	si->current_proc_path = ft_strdup(working_dir);

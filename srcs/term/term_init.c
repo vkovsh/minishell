@@ -3,8 +3,9 @@
 #include "minishell.h"
 #include <stdio.h>
 #include "retcode.h"
+#include <unistd.h>
 
-static char term_buffer[2048];
+// static char term_buffer[2048];
 
 static char g_buf[128];
 static char *g_buf_addr = g_buf;
@@ -63,22 +64,29 @@ static t_retcode    init_terminal_str(void)
     return (RC_SUCCESS);
 }
 
+int	rl_print_key(int s)
+{
+	write(1, &s, 1);
+	return 1;
+}
+
 t_retcode   init_terminal_data(void)
 {
-    const char *termtype = getenv("TERM");
     int success;
     t_retcode   result;
+    const char *termtype = getenv("TERM");
+	char bp[1024];
 
-    result = RC_ERR; 
-    if (termtype == 0)
+    if (termtype == NULL)
         return (RC_ERR_TERM_NOT_SET);
-    success = tgetent(term_buffer, termtype);
+    result = RC_ERR; 
+    success = tgetent(bp, termtype);
     if (success < 0)
         return (RC_ERR_TERMINFO_DB_ACCESS);
     if (success == 0)
         return (RC_ERR_TERMTYPE_UNDEFINED);
     result = init_terminal_str();
-    // tputs(tgoto(g_goto_str, 10, 1), 0, &rl_print_key);
+	// tputs(tgoto(g_goto_str, 10, 1), 0, &rl_print_key);
     // printf("%s%s%s\n", g_standout_begin_str, "TEST", g_standout_end_str);
     return (result);
 }
